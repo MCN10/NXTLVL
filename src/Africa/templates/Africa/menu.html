@@ -1,0 +1,17 @@
+{% extends 'menu_base.html' %}
+
+{% load static %}
+
+{% block body %}
+<ul class="productts">
+    <li class="productt">
+    	{% for ingredient in ingredients %}
+    	{% if ingredients.dish == dish.name %}
+        <div class="foodicon">{{ingredient.image}}</div>
+        {% endif %}
+    	{% endfor %}
+    </li>
+</ul>
+
+
+{% endblock %}

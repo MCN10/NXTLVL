@@ -1,0 +1,237 @@
+{% extends 'stall_base.html' %}
+
+
+{% load static %}
+
+{% block body %}
+
+<div class="view">
+
+    <!-- Grid -->
+
+    <section class="grid grid--loader">
+        <h3 class="billing-heading mb-4 action--text">Order Summary</h3>
+        <p class="billing-heading mb-4 action--text">Number of Items : <strong>{{ order.get_cart_items}}</strong></p>
+        <p class="billing-heading mb-4 action--text">Grand Total : <strong>R{{ order.get_cart_total|floatformat:2}}</strong></p>
+        <span> {% for item in items %} <img src={{ item.product.imageURL1}} class="slider" style="width:100px; height:120px" /> X {{item.quantity}}&nbsp;{% endfor %}</span>
+        <div style="padding-left:30%; padding-right:30%; " id="form-wrapper">
+            <form id="form">
+                <div id="user-informaton">
+                    <hr>
+                    <p>Customer Information:</p>
+                    <hr>
+                    <div class="form-field">
+                        {% if user.is_authenticated %}<input style="border-radius: 5px; padding: 10px; color: #000;" required class="form-control" type="text" name="name" placeholder="{{ user.username }}" value="{{ user.username }}" readonly> {% else %} <input style="border-radius: 5px; padding: 10px" required class="form-control" type="text" name="name" placeholder="Name..">{% endif %}
+                    </div>
+                    <div class="form-field">
+                        {% if user.is_authenticated %}<input style="border-radius: 5px; padding: 10px; color: #000;" required class="form-control" type="email" name="email" placeholder="{{ user.email }}" value="{{ user.email }}" readonly> {% else %} <input style="border-radius: 5px; padding: 10px" required class="form-control" type="email" name="email" placeholder="Email..">{% endif %}
+                    </div>
+                <div class="form-field">
+                        {% if user.is_authenticated and not user.phone%} 
+                         <input style="border-radius: 5px; padding: 10px; " required class="form-control" type="text" name="phone" placeholder="Phone Number ..." "  >
+                        {% elif user.is_authenticated and user.phone %} 
+                        <input style="border-radius: 5px; padding: 10px; color: #000;" required class="form-control" type="text" name="phone" placeholder="{{ user.phone }}" value="{{ user.phone }}" readonly > 
+                        {% else %} <input style="border-radius: 5px; padding: 10px" required class="form-control" type="text" name="phone" placeholder="Phone Number..">{% endif %}
+                    </div>
+                </div>
+
+                <div id="shipping-info">
+                    <hr>
+                    <p>Shipping Information:</p>
+                    <hr>
+                    <div class="form-field">
+                        <input class="form-control" style="border-radius: 5px; padding: 10px" required type="text" name="country" placeholder="Country">
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" style="border-radius: 5px; padding: 10px" required type="text" name="address1" placeholder="Address line 1..">
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" style="border-radius: 5px; padding: 10px" type="text" name="address2" placeholder="Address line 2 (Optional)..">
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" style="border-radius: 5px; padding: 10px" required type="text" name="suburb" placeholder="Suburb..">
+                    </div>                  
+                      <div class="form-field">
+                        <input class="form-control" style="border-radius: 5px; padding: 10px" required type="text" name="city" placeholder="City..">
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" style="border-radius: 5px; padding: 10px" required type="text" name="province" placeholder="Province..">
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" style="border-radius: 5px; padding: 10px" required type="text" name="postal_code" placeholder="Postal code..">
+                    </div>
+
+                </div>
+
+                <br>
+                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+            </form>
+        </div>
+        <div class=" p-3 p-md-4">
+
+
+            <div class="box-element hidden" id="payment-info">
+
+                <br>
+                <div style="padding-right: 30%;padding-left: 30%">
+                    <hr>
+                    <p>Billing Details:</p>
+                    <hr>
+                    <div id="paypal-button-container"></div>
+
+                </div>
+
+            </div>
+            <br>
+
+            <p class="action--text"><a href="{% url 'Collective:cart' %}" class="btn action--button-btn">Return to Cart</a>
+                <a href="{% url 'Collective:store' %}" class="btn action--button-btn">Continue Shopping</a></p>
+        </div>
+    </section>
+</div>
+<!-- Include the PayPal JavaScript SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=AWTSBLTVTYkqnxwKZvM8PEFfIp0z-RpJaw1_6Bj_LWht6CCM8Umq4j0WOc5Ue3_VKDkMsmedjNaT7O7-&currency=USD"></script>
+
+<script>
+    var total = '{{order.get_cart_total}}'
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+
+        style: {
+            color: 'blue',
+            label: 'pay',
+            height: 40
+        },
+
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: parseFloat(total).toFixed(2)
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Show a success message to the buyer
+                submitFormData();
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+
+</script>
+
+
+
+<script type="text/javascript">
+    var shipping = '{{order.shipping}}'
+    var total = '{{order.get_cart_total}}'
+
+    console.log('Shipping value:', shipping)
+    console.log('Shipping total:', total)
+
+    if (shipping == 'False') {
+        document.getElementById('shipping-information').innerHTML = ''
+    }
+
+
+    if (shipping == 'False' && user != 'AnonymousUser') {
+        //Hide entire form if logged in and shipping false
+        document.getElementById('form-wrapper').classList.add("hidden");
+        //show payment if logged in user in user wants to buy an item that does not require shipping
+        document.getElementById('payment-info').classList.remove("hidden");
+    }
+
+
+    var form = document.getElementById('form')
+    csrf_token = form.getElementsByTagName("input")[0].value
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault()
+        console.log('Form Submitted. . . .')
+        document.getElementById('form-button').classList.add('hidden');
+        document.getElementById('payment-info').classList.remove('hidden')
+    })
+    /*
+      document.getElementById('make-payment').addEventListener('click', function(e) {
+        submitFormData()
+      })
+    */
+    function submitFormData() {
+        console.log('Payment button clicked')
+
+        var userFormData = {
+            'name': null,
+            'email': null,
+            'phone': null,
+            'total': total,
+        }
+        console.log('User Form Created')
+
+        var shippingInfo = {
+            'country': null,
+            'address1': null,
+            'address2': null,
+            'suburb': null,
+            'city': null,
+            'province': null,
+            'postal_code': null,
+        }
+        console.log('Shipping Info Created')
+
+        if (shipping != 'False') {
+            shippingInfo.country = form.country.value
+            shippingInfo.address1 = form.address1.value
+            shippingInfo.address2 = form.address2.value
+            shippingInfo.suburb = form.suburb.value
+            shippingInfo.city = form.city.value
+            shippingInfo.province = form.province.value
+            shippingInfo.postal_code = form.postal_code.value
+        }
+
+        userFormData.name = form.name.value
+        userFormData.email = form.email.value
+        userFormData.phone = form.phone.value
+
+        console.log('Checks passed')
+        console.log('User Form Data', userFormData)
+        console.log('Shipping Information', shippingInfo)
+
+        var url = '/IIIrdCollective/process_order/'
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({
+                    'form': userFormData,
+                    'shipping': shippingInfo,
+                })
+            })
+            .then((response) => response.json())
+            .then((data) => {
+
+
+                cart = {}
+                console.log('Success:', data);
+
+                console.log('Cart data:', cart);
+                console.log('Success:', data);
+                alert('Transaction completed');
+
+                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain;path=/"
+
+                window.location.href = "{% url 'Collective:store' %}"
+            })
+    }
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'store_base.html' %}
+
+{% load static %}
+
+{% block body %}
+
+
+<!-- Main -->
+<div class="view">
+
+    <!-- Grid -->
+
+    <section class="grid" id="main">
+        <header>
+            <span class="avatar"><img {% if request.user.customer.profile_pic %} src="{{request.user.customer.profile_pic.url}}" {% else %} src="{% static 'images/dummy.jpg' %}" {% endif %} alt="" /></span>
+
+<form method="post">{% csrf_token %}
+            <input placeholder="Update Username: " id="id_username" value={{user.username}}> </input>
+            <input placeholder="Update Email.." id="id_email" value={{user.email}}></input>
+<br>
+<br>
+            <ul class="icons">
+                <li><a title="Save" type="submit" >
+                        <ion-icon name="save-outline" type="submit" size="large">Save</ion-icon>
+                    </a></li>
+            </ul>
+
+                    </form>
+
+        </header>
+        <br>
+    </section>
+
+
+</div>
+<script type="text/javascript">
+    console.log("You have reached the Profile page")
+
+</script>
+
+
+{% endblock %}

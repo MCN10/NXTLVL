@@ -1,0 +1,237 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Collective</title>
+    <meta name="description" content="An online collection for Clint Josephs designer goods" />
+    <meta name="keywords" content="Tupac, Biggie, shirts t-shirts, online sale, online shopping, order, delivery, custom" />
+    <meta name="author" content="Mufudzi Christopher" />
+    <link rel="shortcut icon" href="{% static 'images/II-light.gif' %}">
+    <!-- Feather Icons -->
+    <link rel="stylesheet" type="text/css" href="{% static 'extra/fonts/feather/style.css' %}">
+    <!-- General demo styles & header -->
+    <link id="collective_stylesheet" rel="stylesheet" type="text/css" href="{% static 'css/demo-dark.css' %}" />
+    <!-- Component styles -->
+
+    <script src="{% static 'extra/js/modernizr.custom.js' %}"></script>
+</head>
+<script type="text/javascript">
+    var user = '{{request.user}}'
+
+    function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+
+
+    function getCookie(name) {
+        //Split cookie string and get all individual name=value pairs in array
+        var cookieArr = document.cookie.split(";");
+
+        //Loop through the array elements
+        for (var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+
+            /* Removing whitespace at the begining of the cookie name
+            and compare it with the given string */
+            if (name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        //Return null if not found
+        return null;
+    }
+    console.log('Cart: ', cart)
+
+
+    var cart = JSON.parse(getCookie('cart'))
+
+    if (cart == undefined) {
+        cart = {}
+        console.log('Cart Created!', cart)
+        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain;path=/"
+    }
+    console.log('Cart: ', cart)
+
+</script>
+
+<body>
+    <!-- Main container -->
+    <div class="container">
+        <!-- Blueprint header -->
+        <header class="bp-header ">
+
+            <span>T H E C O <img id="collective_spinner" src=" {% static 'images/II-dark.gif' %}" style="width: 2%;" /> E C T I V E<span class="bp bp-icon-about"></span></span>
+            <br>
+
+            {% if user.is_authenticated %}
+            <h6>Logged in as: {{user.username}}
+
+                <a onclick="darkMode()">
+                    <ion-icon title="Dark Mode" name="contrast-outline"></ion-icon>
+                </a>
+
+                <a onclick="lightMode()">
+                    <ion-icon title="Light Mode" name="sunny-outline"></ion-icon>
+                </a>
+            </h6>
+
+
+
+            {% endif %}
+            <nav>
+                <a href="{% url 'home:home' %}" title="Exit Store">
+                    <ion-icon name="chevron-back-circle-outline" size="large"></ion-icon>
+                </a>
+                {% if user.is_axisStaff or user.is_superuser %}
+                <a href="{% url 'Collective:dashboard' %}" target="_blank" title="Management Studio">
+                    <ion-icon name="options-outline" size="large"></ion-icon>
+                </a>
+                {% endif %}
+
+                <a href="{% url 'Collective:about' %}" title="About Us">
+                    <ion-icon name="information-circle-outline" size="large"></ion-icon>
+                </a>
+                <a href="{% url 'Collective:contact' %}" title="Contact">
+                    <ion-icon name="mail-outline" size="large"></ion-icon>
+                </a>
+                <a href="{% url 'Collective:store' %}" title="Online Store">
+                    <ion-icon name="home-outline" size="large"></ion-icon>
+                </a>
+                <a href="{% url 'Collective:cart' %}" tile="My Cart" data-info="">
+                    <ion-icon name="cart-outline" size="large"></ion-icon>
+                </a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'account:logout' %}" title="Log Out">
+                    <ion-icon name="log-out-outline" size="large"></ion-icon>
+                </a>
+                {% else %}
+                <a href="{% url 'account:login' %}" title="Log in">
+                    <ion-icon name="log-in-outline" size="large"></ion-icon>
+                </a>
+                {% endif %}
+
+            </nav>
+            <hr style="color:black">
+
+        </header>
+
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissable" role="alert">
+                    <button class="close" data-dismiss="modal"><small><sup>x</sup></small></button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {%  endif %}
+
+
+
+
+
+
+        {% block body %}
+        {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <script src="{% static 'extra/js/classie.js' %}"></script>
+    <script src="{% static 'extra/js/dynamics.min.js' %}"></script>
+    <script src="{% static 'extra/js/main.js' %}"></script>
+    <script src="{% static 'js/collectivecart.js' %}"></script>
+    <script src="{% static 'js/collectivedisplay.js' %}"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
+
+    <script type="text/javascript">
+        var collective_theme = localStorage.getItem('collective_theme')
+        var collective_spinner = localStorage.getItem('collective_spinner')
+
+        console.log("collective_theme:", collective_theme)
+        console.log("collective_spinner:", collective_spinner)
+        if (collective_theme == null) {
+            lightMode()
+        } else {
+            document.getElementById('collective_stylesheet').href = collective_theme
+
+        }
+
+
+        if (collective_spinner == null) {
+            lightMode()
+        } else {
+            document.getElementById('collective_spinner').src = collective_spinner
+
+        }
+
+        function darkMode() {
+            console.log("DarkMode Ran")
+            swapStyleDark()
+            swapImageDark()
+        }
+
+        function swapStyleDark() {
+            console.log("Dark Style Ran")
+            document.getElementById('collective_stylesheet').href = "{% static 'css/demo-dark.css' %}"
+            localStorage.setItem('collective_theme', "{% static 'css/demo-dark.css' %}")
+        }
+
+        function swapImageDark() {
+            console.log("Dark Image Ran")
+            document.getElementById('collective_spinner').src = "{% static 'images/II-dark.gif' }"
+            localStorage.setItem('collective_spinner', "{% static 'images/II-dark.gif' %}")
+
+        }
+
+        function lightMode() {
+            console.log("Light Mode Ran")
+            swapStyleLight()
+            swapImageLight()
+
+        }
+
+        function swapStyleLight() {
+            console.log("Light Style Ran")
+            document.getElementById('collective_stylesheet').href = "{% static 'css/demo.css' %}"
+            localStorage.setItem('collective_theme', "{% static 'css/demo.css' %}")
+        }
+
+        function swapImageLight() {
+            console.log("Light Image Ran")
+            document.getElementById('collective_spinner').src = "{% static 'images/II-light.gif' %}"
+            localStorage.setItem('collective_spinner', "{% static 'images/II-light.gif' %}")
+        }
+
+    </script>
+
+</body>
+
+</html>

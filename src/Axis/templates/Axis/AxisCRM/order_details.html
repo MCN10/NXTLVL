@@ -1,0 +1,107 @@
+{% extends 'Axis/AxisCRM/main_template.html' %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5> #{{order.transaction_id}}</h5>
+			<hr>
+			<p><strong>Date Ordered: {{order.date_ordered}}</strong></p>
+			<p><strong>Order ID: {{order.transaction_id}} </strong></p>
+			<p><strong>Total: </strong>{{order.get_cart_total}}</p>
+			<p><strong>Status: </strong>{{order.status}}</p>
+			<p><strong>Number of Items: </strong>{{order.get_cart_items}}</p>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'Axis:update_order' order.id %}">Update Order</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Cancel Order</a>
+
+		</div>
+	</div>
+	<div class="col-md">
+		<div class="card card-body">
+
+			<table class>
+				<tr>
+					<td><strong>Country: </strong></td>
+					<td><p>{{shippingDetails.country}}</p></td>
+	</tr>					<tr>
+							<td><strong>Address line 1:  </strong></td>
+							<td><p>{{shippingDetails.address1}}</p></td>
+					</tr>					<tr>
+											<td><strong>Address line 2: </strong> </td>
+											<td><p>{{shippingDetails.address2}}</p></td>
+									</tr>					<tr>
+															<td><strong>Suburb:  </strong></td>
+															<td><p>{{shippingDetails.suburb}}</p></td>
+													</tr>					<tr>
+																			<td><strong>City:  </strong></td>
+																			<td><p>{{shippingDetails.city}}  </p></td>
+																	</tr>					<tr>
+																							<td><strong>Province: </strong></td>
+																							<td><p> {{shippingDetails.province}}</p></td>
+																					</tr>					<tr>
+																											<td><strong>Postal Code:  </strong></td>
+																											<td><p>{{shippingDetails.postal_code}}</p></td>
+																												</tr>
+			</table>
+
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Contact Details</h5>
+			<hr>
+			<p><strong>Email: </strong> {{order.customer.email}}</p>
+			<p><strong>Phone:</strong> {{order.customer.user.phone}}</p>
+		</div>
+<!-- 		<div class="card card-body">
+			<h5></h5>
+			<hr>
+			<p><strong> </strong> </p>
+			<p><strong></strong> </p>
+		</div> -->
+	</div>
+</div>
+<br>
+ <div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Order Details</h5>
+		</div>
+		<div class="card card-body">
+			<table class="table">
+				<tr>
+					<th>Product</th>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Quantity</th>
+				</tr>
+				{% for item in items %}
+					<tr>
+						<td><span><img src="{{item.product.imageURL1}}" padding="0px" width="25%"/></span></td>
+						<td>{{item.product.name}}</td>
+						<td>{{item.product.category}}</td>
+						<td>{{item.quantity}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+
+		<div class="row">
+	</div>
+</div>
+
+		</div>
+	</div>
+	                    <button class="btn btn-sm btn-info"  title="Done" value="Back" onclick="window.history.back()">Back
+
+                    </button>
+                    </div>
+
+
+{% endblock content %}

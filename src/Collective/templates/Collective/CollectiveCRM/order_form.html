@@ -1,0 +1,38 @@
+{% extends 'Collective/CollectiveCRM/main_template.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
+
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+			{% if action == 'create' %}
+				<h3>Create {{name}}</h3>
+			{% elif action == 'update' %}
+				<h3>Update {{name}}</h3>
+			{% endif %}
+			
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+			<form action="" enctype='multipart/form-data' method="POST">
+            	{% csrf_token %}
+				{% for field in form %}
+					{{field.label}}
+					{{field|add_class:'form-control'}}
+				
+				{% endfor %}
+				<hr>
+				<button class="btn btn-info"  title="Done" value="Back" onclick="window.history.back()">Back</button>
+				<input type="submit" class="btn btn-info">	
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+		
+{% extends 'Collective/CollectiveCRM/main_template.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'Collective/CollectiveCRM/status_row.html' %}
+
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>CUSTOMERS: {{total_customers}}</h5>
+		<hr>
+		<div class="card card-body">
+<!-- 			<a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
+ -->			<table class="table table-sm">
+				<tr>
+					<th></th>
+					<th>Customer</th>
+					<th>Orders</th>
+				</tr>
+				{% for customer in customers %}
+					<tr>
+						<td><a href="{% url 'Collective:customer' customer.id %}" class="btn btn-sm btn-info">View</a></td>
+						<td>{{customer.user.username}}</td>
+						<td>{{customer.orders}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>LAST 5 ORDERS</h5>
+		<hr>
+		<div class="card card-body">
+<!-- 			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'Collective:create_order' %}">Create Order</a>
+ -->			<table class="table table-sm">
+				<tr>
+					<th>Transaction ID</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+					<th>View</th>
+					<th>Update</th>
+					<th>Cancel</th>
+				</tr>
+				{% for order in orders %}
+					<tr>
+						<td>{{order.transaction_id}}</td>
+						<td>{{order.date_ordered}}</td>
+						<td>{{order.status}}</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'Collective:view_order' order.id %}">Details</a></td>
+						<td><a class="btn btn-sm btn-warning" href="{% url 'Collective:update_order' order.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'Collective:delete_order' order.id %}">Delete</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+</div>
+{% endblock content %}

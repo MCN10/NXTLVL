@@ -1,0 +1,114 @@
+{% extends 'stall_base.html' %}
+
+
+{% load static %}
+
+{% block body %}
+
+
+<!-- Bottom bar with filter and cart info -->
+<div class="bar" style="height: 70px;  opacity: 0.2">
+
+<a href="{% url 'Collective:cart' %}" class="">  <button class="cart"> <ion-icon size="medium" name="cart-outline"></ion-icon>
+      <span class="text-hidden">Shopping cart</span>
+      <span class="cart__count">{{cartItems}}</span>
+  </button></a>
+</div>
+
+
+<section class="slider">
+    {% for product in products %}
+
+    <div {% if forloop.first %} class="slide slide--current" {% else %} class="slide" {% endif %}data-content="content-{{ forloop.counter }}">
+
+        <div class="slide__mover">
+            <div class="zoomer flex-center">
+                <img class="zoomer__image" style="width: 20%" src="{{product.imageURL1}}" alt="{{product.name}}" />
+                <div class="preview">
+                    <img src="{{product.imageURL2}}" alt="{{product.name}}" />
+                    <div class="zoomer__area zoomer__area--size-2"></div>
+                </div>
+            </div>
+        </div>
+        <h2 class="slide__title">{{product.name}}</h2>
+    </div>
+    {% endfor %}
+
+    <nav class="slider__nav">
+        <button class="button button--nav-prev"><ion-icon size="large" name="arrow-back-circle-outline"></ion-icon><span class="text-hidden">Previous product</span></button>
+        <button class="button button--zoom"><ion-icon size="large" name="search-outline"></ion-icon><span class="text-hidden">View details</span></button>
+        <button class="button button--nav-next"><ion-icon size="large" name="arrow-forward-circle-outline"></ion-icon><span class="text-hidden">Next product</span></button>
+    </nav>
+</section>
+    <br>
+    <br>
+    <br>
+<!-- /slider-->
+<section class="content")>
+
+    <!-- Bottom bar with filter and cart info -->
+<div class="bar" style="height: 70px;  background-color: transparent">
+
+<a href="{% url 'Collective:cart' %}" class="">  <button class="cart"> <ion-icon size="medium" name="cart-outline"></ion-icon>
+      <span class="text-hidden">Shopping cart</span>
+      <span class="cart__count">{{cartItems}}</span>
+  </button></a>
+</div>
+    {% for product in products %}
+
+    <div class="content__item" id="content-{{ forloop.counter }}">
+        <div class="product__image">
+            <div class="slider__item"><img class="content__item-img rounded" src="{{product.imageURL2}}" onclick="Power_trip1()" alt="{{product.name}}" /></div>
+            <div class="slider__item"><img class="content__item-img rounded" src="{{product.imageURL3}}" onclick="Power_trip2()"  alt="{{product.name}}" /></div>
+            {% if product.imageURL3 %}
+            <div class="slider__item"><img class="content__item-img rounded" src="{{product.imageURL4}}" onclick="Power_trip3()"  alt="{{product.name}}" /></div>
+            {% endif %}
+        </div>
+            <div id="img-container">
+                <div id="lens"></div>
+        <img id="featured" class="content__item-img rounded" src="{{product.imageURL1}}" alt="{{product.name}}" />
+    </div>
+        <div class="content__item-inner">
+            <h2>{{product.name}}</h2>
+            <h3>R {{product.price}}</h3>
+            <p>{{product.description}}</p>
+<hr>
+
+<div id="order_chart" style="display:block">
+<ion-icon data-product={{product.size}} size="large" id="small_check" onclick="Size_trip(1)" name="radio-button-off-outline"></ion-icon>        <label>S</label>
+
+<ion-icon data-product={{product.size}} size="large" id="medium_check" onclick="Size_trip(2)"name="radio-button-off-outline"></ion-icon>        <label>M</label>
+
+<ion-icon data-product={{product.size}} size="large" id="large_check" onclick="Size_trip(3)" name="radio-button-off-outline"></ion-icon>        <label>L</label>
+
+<ion-icon data-product={{product.size}} size="large" id="xlarge_check" onclick="Size_trip(4)" name="radio-button-off-outline"></ion-icon>        <label>XL</label>
+<ion-icon data-product={{product.size}} size="large" id="xxlarge_check" onclick="Size_trip(5)" name="radio-button-off-outline"></ion-icon>       <label>XXL</label>
+
+<hr>
+
+<ion-icon data-product={{product.color}} size="large" id="white_check" onclick="Color_trip(1)" name="radio-button-off-outline"></ion-icon>        <label >White</label>
+<ion-icon data-product={{product.color}} size="large" id="black_check" onclick="Color_trip(2)" name="radio-button-off-outline"></ion-icon>        <label >Black</label>
+<ion-icon data-product={{product.color}} size="large" id="navy_check" onclick="Color_trip(3)" name="radio-button-off-outline"></ion-icon>        <label >Navy</label>
+<ion-icon data-product={{product.color}} size="large" id="red_check" onclick="Color_trip(4)" name="radio-button-off-outline"></ion-icon>        <label >Red</label>
+<ion-icon data-product={{product.color}} size="large" id="grey_check" onclick="Color_trip(5)" name="radio-button-off-outline"></ion-icon>       <label >Grey</label>
+
+
+<hr>
+<div id="add_to_cart"   style="display:none">
+<ion-icon data-product={{product.id}} data-action="add" class="update-cart" size="large" data-product={{product.id}} data-action="add" name="cart-outline"></ion-icon></div>
+
+
+
+<hr>
+</div>
+
+        </div>
+    </div>
+    {% endfor %}
+
+
+    <button class="button button--close"><ion-icon size="large" name="close-circle-outline"></ion-icon><span class="text-hidden">Close content</span></button>
+</section>
+
+
+{% endblock %}

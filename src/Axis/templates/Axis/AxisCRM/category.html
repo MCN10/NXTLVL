@@ -1,0 +1,66 @@
+{% extends 'Axis/AxisCRM/main_template.html' %}
+{% block content %}
+{% load widget_tweaks %}
+
+
+<br>
+
+<div class="row">
+		<div class="col-md">
+		<div class="card card-body">
+			<h5>Categories</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'Axis:add_category' %}">Add Category</a>
+<!-- 			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Categories</a>
+ -->		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Categories</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{total_categories}}</h1>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+		    {% for field in filter.form %}
+		    	{{field.label}}
+		    	{{field|add_class:'form-control-sm'}}
+		    {% endfor %}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+		</div>
+	</div>
+	
+</div>
+<br>
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Name</th>
+					<th>Date Added</th>
+					<th>Slug</th>
+					<th>Actions</th>
+
+				</tr>
+				{% for category in categories %}
+					<tr>
+						<td>{{category.category_name}}</td>
+						<td>{{category.date_added}}</td>
+						<td>{{category.slug}}</td>
+						<td><a class="btn btn-sm btn-primary" href="{% url 'Axis:update_category' category.id %}">Update</a><a class="btn btn-sm btn-danger" href="{% url 'Axis:delete_category' category.id %}">Delete </a></td>
+
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+	
+</div>
+
+{% endblock content %}

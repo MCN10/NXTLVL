@@ -1,0 +1,297 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <title>Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment</title>
+    <meta name="description" content="Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment" />
+    <meta name="keywords" content="Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment" />
+    <meta name="author" content="Mufudzi Christopher" />
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
+
+    <link rel="stylesheet" href="https://use.typekit.net/bml8yys.css">
+    <link rel="stylesheet" href="https://use.typekit.net/vxy2fer.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.98fd6c19.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap 4  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400&display=swap" media="print" onload="if(media!='all') media='all'">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- Flaticon icons -->
+    <link rel="stylesheet" type="text/css" href="{% static 'font/flaticon.css' %}" />
+
+    <!-- General demo styles & header -->
+    <link id="axis_stylesheet" rel="stylesheet" type="text/css" href="{% static 'css/demo-dark.css' %}" />
+
+    <!-- Flickity gallery styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/flickity.css' %}" />
+
+
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+
+        function getToken(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken')
+
+        function getCookie(name) {
+            // Split cookie string and get all individual name=value pairs in an array
+            var cookieArr = document.cookie.split(";");
+
+            // Loop through the array elements
+            for (var i = 0; i < cookieArr.length; i++) {
+                var cookiePair = cookieArr[i].split("=");
+
+                /* Removing whitespace at the beginning of the cookie name
+                and compare it with the given string */
+                if (name == cookiePair[0].trim()) {
+                    // Decode the cookie value and return
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+
+            // Return null if not found
+            return null;
+        }
+        var cart = JSON.parse(getCookie('cart'))
+
+        if (cart == undefined) {
+            cart = {}
+            console.log('Cart Created!', cart)
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        }
+        console.log('Cart:', cart)
+    </script>
+
+</head>
+
+<body class=" loading demo-1">
+    <!-- Blueprint header -->
+
+    <header class="bp-header ">
+
+        <br>
+
+        <span>
+
+            <div class="main">
+                <a><img id="axis_spinner" src="{% static 'images/logo.png' %}"  /></a>
+                <br><br>
+            </div>
+        </span>
+<hr>        <br>
+
+        <nav>
+            <input class="check-hidden" type="checkbox" />
+            <a type="radio" onclick="darkMode()">
+                <ion-icon size="small" title="Dark Mode" name="contrast-outline"></ion-icon><br>
+            </a>
+
+            <!-- <a href="{% url 'Axis:home' %}" title="Home">
+                <ion-icon src="{% static 'ion-icons/home-outline.svg' %}" size="large"></ion-icon><br>Home
+            </a> -->
+            <a href="{% url 'Axis:store' %}" title="Online Store">
+                <ion-icon src="{% static 'ion-icons/storefront-outline.svg' %}" size="large"></ion-icon>
+                Store
+            </a>
+            {% if user.is_authenticated %}
+            {% if cartItems %}
+
+            <a href="{% url 'Axis:cart' %}" title="Cart" data-info="">
+                <ion-icon src="{% static 'ion-icons/cart-sharp.svg' %}" class="cart__icon" size="large"></ion-icon><br>Cart
+                <span class="cart__count">{{cartItems}}</span>
+            </a>
+
+            {% else %}
+
+            <a href="{% url 'Axis:cart' %}" title="Cart" data-info="">
+                <ion-icon src="{% static 'ion-icons/cart-outline.svg' %}" size="large"></ion-icon><br>Cart
+            </a>
+            {% endif %}
+            <a href="{% url 'account:profile' %}" title="My  Profile">
+                <ion-icon src="{% static 'ion-icons/person-outline.svg' %}" size="large"></ion-icon>Profile
+            </a>
+            <a href="{% url 'account:logout' %}" title="Log Out">
+                <ion-icon src="{% static 'ion-icons/log-out-outline.svg' %}" size="large"></ion-icon>Logout
+            </a>
+            {% else %}
+
+
+            <a href="{% url 'account:login' %}" title="Cart" data-info="">
+                <ion-icon src="{% static 'ion-icons/cart-outline.svg' %}" size="large"></ion-icon><br>Cart
+            </a>
+            <a href="{% url 'account:register' %}" title="Create Account">
+                <ion-icon src="{% static 'ion-icons/person-add-outline.svg' %}" size="large"></ion-icon>Register
+            </a>
+            <a href="{% url 'account:login' %}" title="Log in">
+                <ion-icon src="{% static 'ion-icons/log-in-outline.svg' %}" size="large"></ion-icon><br>Log in
+            </a>
+            {% endif %}
+            <a href="{% url 'Axis:contact' %}" title="Contact">
+                <ion-icon src="{% static 'ion-icons/mail-outline.svg' %}" size="large"></ion-icon>Contact
+            </a>
+            <a href="{% url 'Axis:about' %}" title="About Us">
+                <ion-icon src="{% static 'ion-icons/information-circle-outline.svg' %}" size="large"></ion-icon>About
+            </a>
+            {% if user.is_axisStaff or user.is_superuser %}
+            <a href="{% url 'Axis:dashboard' %}" target="_blank" title="Management Studio">
+                <ion-icon src="{% static 'ion-icons/options-outline.svg' %}" size="large"></ion-icon>Studio
+            </a>
+                        {% endif %}
+            <a type="radio" onclick="lightMode()">
+                <ion-icon size="small" title="Light Mode" name="sunny-outline"></ion-icon><br>
+            </a>
+
+                        {% if user.is_authenticated %}
+            <p style="text-align: center; padding-left: 5%; top:0;">Logged in as: {{user.username}}
+                <!-- DARK MODE LIGHT MODE SWITCHES -->
+
+                <!-- END DARK MODE LIGHT MODE SWITCHES -->
+
+            </p>
+            {% endif %}
+
+            <hr>
+<br>
+        </nav>
+    </header>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissable" role="alert">
+        <button class="close" data-dismiss="modal">
+            <ion-icon src="{% static 'ion-icons/close-circle-outline.svg' %}" size="large"></ion-icon>
+        </button>
+        {{ message }}
+    </div>
+    {% endfor %}
+    {%  endif %}
+    <!-- Compare basket
+
+-->
+    <div class="compare-basket">
+        <button class="action action--button action--compare">Compare</button>
+    </div>
+
+
+
+
+
+    {% block body %}
+
+
+
+
+
+
+
+
+
+
+    {% endblock body %}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.0/paper-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/flickity.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/compare_main.js' %}"></script>
+
+    <script src="{% static 'js/classie.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
+
+    <script type="text/javascript">
+        var axis_theme = localStorage.getItem('axis_theme')
+        var axis_spinner = localStorage.getItem('axis_spinner')
+
+        console.log("axis_theme:", axis_theme)
+        console.log("axis_spinner:", axis_spinner)
+        if (axis_theme == null) {
+            lightMode()
+        } else {
+            document.getElementById('axis_stylesheet').href = axis_theme
+
+        }
+
+
+        if (axis_spinner == null) {
+            lightMode()
+        } else {
+            document.getElementById('axis_spinner').src = axis_spinner
+
+        }
+
+        function darkMode() {
+            console.log("DarkMode Ran")
+            swapStyleDark()
+            swapImageDark()
+        }
+
+        function swapStyleDark() {
+            console.log("Dark Style Ran")
+            document.getElementById('axis_stylesheet').href = "{% static 'css/demo-dark.css' %}"
+            localStorage.setItem('axis_theme', "{% static 'css/demo-dark.css' %}")
+        }
+
+        function swapImageDark() {
+            console.log("Dark Image Ran")
+            document.getElementById('axis_spinner').src = "{% static 'images/logo.png' }"
+            localStorage.setItem('axis_spinner', "{% static 'images/logo.png' %}")
+
+        }
+
+        function lightMode() {
+            console.log("Light Mode Ran")
+            swapStyleLight()
+            swapImageLight()
+
+        }
+
+        function swapStyleLight() {
+            console.log("Light Style Ran")
+            document.getElementById('axis_stylesheet').href = "{% static 'css/demo.css' %}"
+            localStorage.setItem('axis_theme', "{% static 'css/demo.css' %}")
+        }
+
+        function swapImageLight() {
+            console.log("Light Image Ran")
+            document.getElementById('axis_spinner').src = "{% static 'images/logo.png' %}"
+            localStorage.setItem('axis_spinner', "{% static 'images/logo.png' %}")
+        }
+    </script>
+
+
+
+    <br><br>
+
+</body>
+
+</html>

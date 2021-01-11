@@ -1,0 +1,98 @@
+{% extends 'Collective/CollectiveCRM/main_template.html' %}
+{% block content %}
+{% load widget_tweaks %}
+
+
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Customer: {{customer.user.username}}</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Customer</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Contact Information</h5>
+			<hr>
+			<p><strong>Email: </strong>  {{customer.user.email}}</p>
+			<p><strong>Phone: </strong>{{customer.user.phone}}</p>
+		</div>
+	</div>	
+<!-- 	<div class="col-md">
+		<div class="card card-body">
+			<h5>Shipping Details</h5>
+			<hr>
+			<p>Country:  {{shippingDetails.country}}</p>
+			<p>Address line 1:  {{shippingDetails.address1}}</p>
+			<p>Address line 2:  {{shippingDetails.address2}}</p>
+			<p>City:  {{shippingDetails.city}}</p>
+			<p>Province:  {{shippingDetails.province}}</p>
+			<p>Postal Code:  {{shippingDetails.postal_code}}</p>
+		</div>
+	</div>
+ -->
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Orders</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{total_orders}}</h1>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+		    {% for field in filter.form %}
+		    	{{field.label}}
+		    	{{field|add_class:'form-control-sm'}}
+		    {% endfor %}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+		</div>
+	</div>
+	
+</div>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table 	table-sm">
+				<tr>
+					<th>Transaction ID</th>
+					<th>Number of Items</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+					<th>View</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+				{% for order in orders %}
+					<tr>
+						<td>{{order.transaction_id}}</td>
+						<td>{{order.get_cart_items}}</td>
+						<td>{{order.date_ordered}}</td>
+						<td>{{order.status}}</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'Collective:view_order' order.id %}">Details</a></td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'Collective:update_order' order.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'Collective:delete_order' order.id %}">Cancel</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+	
+
+
+{% endblock content %}

@@ -1,0 +1,70 @@
+{% extends 'Axis/AxisCRM/main_template.html' %}
+{% block content %}
+{% load widget_tweaks %}
+
+
+<br>
+
+<div class="row">
+		<div class="col-md">
+		<div class="card card-body">
+			<h5>Products</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'Axis:add_product' %}">Add Product</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'Axis:categories' %}">Categories</a>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Products</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{total_products}}</h1>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+		    {% for field in filter.form %}
+		    	{{field.label}}
+		    	{{field|add_class:'form-control-sm'}}
+		    {% endfor %}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+		</div>
+	</div>
+
+</div>
+<br>
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Product</th>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Stock</th>
+					<th>Price</th>
+					<th>Actions</th>
+
+				</tr>
+				{% for product in products %}
+					<tr>
+						<td style="max-width: 100px"><span><img src="{{product.imageURL1}}"  width="100%"/></span></td>
+						<td>{{product.name}}</td>
+						<td>{{product.category}}</td>
+						<td>{{product.stock}}</td>
+						<td>R{{product.price}}</td>
+						<td><a class="btn btn-sm btn-primary" href="{% url 'Axis:update_product' product.id %}">Update</a><a class="btn btn-sm btn-danger" href="{% url 'Axis:delete_product' product.id %}">Delete </a></td>
+
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock content %}

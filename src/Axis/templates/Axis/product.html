@@ -1,0 +1,130 @@
+{% extends 'product_base.html' %}
+
+
+{% load static %}
+
+
+{% block body %}
+
+<!-- Bottom bar with filter and cart info -->
+<div class="bear" style="background-color: transparent">
+  <div class="filter">
+    <span class="filter__label"> </span>
+    <button class="action filter__item filter__item--selected" data-filter="*"></button>
+
+    {% for category in category_list %}
+
+    {% endfor %}
+  </div>
+  {% if user.is_authenticated %}
+<a href="{% url 'Axis:cart' %}" class="">
+    <button class="cart">
+        <ion-icon src="{% static 'ion-icons/cart-outline.svg" size="large" class="cart__icon"></ion-icon>
+        <span class="text-hidden">Shopping cart</span>
+        <span class="cart__count">{{cartItems}}</span>
+    </button>
+</a>
+{% else %}
+<a href="{% url 'account:login' %}">
+    <button class="cart">
+        <ion-icon src="{% static 'ion-icons/cart-outline.svg' %}" size="large" class="cart__icon"></ion-icon>
+        <span class="text-hidden">Shopping cart</span>
+        <span class="cart__count">{{cartItems}}</span>
+    </button></a>
+{% endif %}
+</div>
+
+			<section id="header" class="contend ">
+        <p class="content__pretitle">{{ product.name}}</p><br>
+				<h1 class="content__title" data-scroll="" data-scroll-speed="2">R {{ product.price }}</h1><br><br><br><br>
+        <p class="content--">
+          <button style="opacity:0.8" ><a style="padding:.5em; font-weight: 600;" href="{% url 'Axis:store' %}" class="btn action--button-btn">Continue Shopping</a></button>
+
+{% if product.stock >= 1  %}
+          <button  style="opacity:0.8" data-product={{product.id}} data-action="add" class="update-cart"><a style="padding:.5em; font-weight: 600;" class="btn action--button-btn">Add to Cart</a></button></p>
+
+
+{% else %}
+          <label style="color: #cd0000;">Out of Stock</label>
+{% endif %}
+      </section>
+			<section class="tiles tiles--rotated" id="grid2">
+				<div class="tiles__wrap">
+					<div class="tiles__line" data-scroll="" data-scroll-speed="1" data-scroll-target="#grid2" data-scroll-direction="horizontal">
+						<div class="tiles__line-img"></div>
+						<div class="tiles__line-img"></div>
+						<div class="tiles__line-img"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL1 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL2 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL3 }}')"></div>
+					</div>
+					<div class="tiles__line" data-scroll="" data-scroll-speed="-1" data-scroll-target="#grid2" data-scroll-direction="horizontal">
+						<div class="tiles__line-img"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL1 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL2 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL3 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL4 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL1 }}')"></div>
+					</div>
+					<div class="tiles__line" data-scroll="" data-scroll-speed="1" data-scroll-target="#grid2" data-scroll-direction="horizontal">
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL1 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL2 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL3 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL4 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL1 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL2 }}')"></div>
+					</div>
+					<div class="tiles__line" data-scroll="" data-scroll-speed="-1" data-scroll-target="#grid2" data-scroll-direction="horizontal">
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL2 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL3 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL4 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL1 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL2 }}')"></div>
+						<div class="tiles__line-img" style="background-image:url('{{ product.imageURL1 }}')"></div>
+					</div>
+					<div class="tiles__line" data-scroll="" data-scroll-speed="1" data-scroll-target="#grid2" data-scroll-direction="horizontal">
+						<div class="tiles__line-img"></div>
+						<div class="tiles__line-img"></div>
+						<div class="tiles__line-img"></div>
+						<div class="tiles__line-img"></div>
+						<div class="tiles__line-img"></div>
+						<div class="tiles__line-img"></div>
+					</div>
+				</div>
+			</section>
+			<section class="contend">
+        <table role="table" style="border-color: transparent;">
+          <tr role="row">
+            <td role="cell">	<p class="content__text" data-scroll="" data-scroll-speed="2">{{ product.description1 }} </p></td>
+            <td role="cell"><iframe width="400" height="315" src="https://www.youtube.com/embed/biWEb8u1JYM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
+            </tr>
+        </table>
+
+			</section>
+      <section class="contend content--feature">
+        <p class="content__breakout content__breakout--big" data-scroll="" data-scroll-speed="3" data-scroll-direction="horizontal">endless acceleration toward infinity</p>
+        <p class="content__breakout content__breakout--medium" data-scroll="" data-scroll-speed="-1" data-scroll-direction="horizontal">the greatest barrier to your enlightenment</p>
+      </section>
+			<section class="tiles" id="grid">
+				<div class="tiles__wrap">
+					<div class="tiles__line" data-scroll="" data-scroll-speed="1" data-scroll-target="#grid" data-scroll-direction="horizontal">
+            <div class="tiles__line-img" style="background-image:url('{{ product.imageURL2 }}')"></div>
+            <div class="tiles__line-img" style="background-image:url('{{ product.imageURL3 }}')"></div>
+            <div class="tiles__line-img" style="background-image:url('{{ product.imageURL4 }}')"></div>
+            <div class="tiles__line-img" style="background-image:url('{{ product.imageURL1 }}')"></div>
+            <div class="tiles__line-img" style="background-image:url('{{ product.imageURL2 }}')"></div>
+            <div class="tiles__line-img" style="background-image:url('{{ product.imageURL3 }}')"></div>
+					</div>
+          <br><br>
+          <a class="backtop" data-scroll="" data-scroll-speed="4">Back to the top</a>
+
+				</div>
+
+			</section>
+
+
+			<section class="content">
+			</section>
+
+
+{% endblock %}

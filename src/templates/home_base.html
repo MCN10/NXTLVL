@@ -1,0 +1,43 @@
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+        <title>Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment</title>
+        <meta name="description" content="Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment" />
+        <meta name="keywords" content="Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment" />
+        <meta name="author" content="Mufudzi Christopher" />
+        <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
+
+    <script>
+        document.documentElement.className = "js";
+        var supportsCssVars = function() {
+            var e, t = document.createElement("style");
+            return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e
+        };
+        supportsCssVars() || alert("Please view this demo in a modern browser that supports CSS Variables.");
+    </script>
+    <link href="{% static 'css/vendors.css' %}" rel="stylesheet">
+    <link href="{% static 'css/demo2.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="overlay"></div>
+
+	<a href="{% url 'Axis:store' %}">
+
+            <div style=" padding-top: 30vh; padding-left: 44vw; padding-right: 55vh; padding-bottom: 15vw">
+<img id="axis_spinner" style="opacity:0.85" src="{% static 'images/logo.png'  %}"  width="500"/>
+
+        </div>
+			</a>
+
+    <script type="text/javascript" src="{% static 'js/vendors.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/demo2.js' %}"></script>
+</body></html>
