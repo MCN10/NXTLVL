@@ -38,18 +38,42 @@ bubles {
         url('../fonts/bpicons/bpicons.svg#bpicons') format('svg');
 }
 
+
+
+
+
+
+/* Main styles */
+body {
+    font-family: Avenir, 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image: url("../images/bg11.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top left, center center, bottom center;
+    background-attachment: fixed, fixed, fixed;
+    overflow-y: scroll;
+    height: 100%;
+
+}
+
+
+
+
 /* Made with http://icomoon.io/ */
 ion-icon {
     color: #fff;
 }
 
 ion-icon {
-font-size: 86px;
+font-size: 56px;
 }
 
 
 ion-icon:hover {
-    color: #cd0000;
+    color: #b51f23;
 }
 
 /* Resets */
@@ -88,20 +112,6 @@ html {
     pointer-events: none;
 }
 
-/* Main styles */
-body {
-    font-family: Avenir, 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif;
-    color: #fff;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-image: url("../images/bg001.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top left, center center, bottom center;
-    background-attachment: fixed, fixed, fixed;
-    overflow-y: scroll;
-}
-
 a {
     text-decoration: none;
     color: #fff;
@@ -109,7 +119,7 @@ a {
 }
 
 a:hover {
-    color: #cd0000;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -173,15 +183,15 @@ a:hover {
 
 .bp-header nav {
     text-align: center;
-    margin: 0 auto;
+    margin: 0 0;
 }
 
 .bp-header nav a {
     position: relative;
     display: inline-block;
     width: 4.5em;
-    height: 4.5em;
-    margin: 0 .1em;
+    height: 2em;
+    margin: 0 0em;
     text-align: left;
     border-radius: 50%;
 }
@@ -190,18 +200,6 @@ a:hover {
     display: none;
 }
 
-.bp-header nav a:hover:before {
-    content: attr(data-info);
-    color: #fff;
-    font-weight: bold;
-    font-size: 0.85em;
-    position: absolute;
-    top: 120%;
-    right: 0;
-    width: 600%;
-    text-align: right;
-    pointer-events: none;
-}
 
 
 @media screen and (max-width: 40em) {
@@ -229,7 +227,7 @@ ul.icons li {
 
 
 ul.icons li a:hover {
-    border-color: #cd0000;
+    border-color: #b51f23;
 }
 
 @media screen and (max-width: 480px) {
@@ -536,7 +534,7 @@ iframe {
     -moz-transition: all 0.4s;
     transition: all 0.4s;
 
-    background: #cd0000;
+    background: #b51f23;
 }
 
 
@@ -586,7 +584,7 @@ textarea.input100 {
     padding: 0 20px;
     min-width: 160px;
     height: 50px;
-    background-color: #cd0000;
+    background-color: #b51f23;
     border-radius: 25px;
     font-size: 16px;
     color: #000;
@@ -790,15 +788,20 @@ textarea.input100 {
 }
 
 .slider__item {
+    opacity: 1;
+}
+
+
+.slider__item {
     width: 200px;
     height: 200px;
     padding: 1em;
-
-
+    opacity: .7;
 }
 
 .slider__item img {
     width: 100%;
+    border-radius: 5%
 
 }
 
@@ -922,14 +925,34 @@ textarea.input100 {
     width: 100%;
     height: 10%;
     padding: 0.75em;
-    overflow-x: scroll;
     text-align: center;
-    background-image: url("../images/bg001.jpg");
+    background-color: transparent;
+    opacity: .8;
     background-size: cover;
     -webkit-transform: translate3d(0, 0, 0);
     /* Fix for Chrome flicker on Mac ...party like we're in 2012! */
 }
 .bar:hover{
+    opacity:1;
+}
+
+.barr {
+    position: fixed;
+    opacity: 1;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    padding: 0.75em;
+    text-align: center;
+    overflow-x: hidden;
+    background: transparent;
+    background-size: cover;
+    -webkit-transform: translate3d(0, 0, 0);
+    /* Fix for Chrome flicker on Mac ...party like we're in 2012! */
+}
+.bar:hoverr{
     opacity:1;
 }
 
@@ -984,7 +1007,7 @@ textarea.input100 {
 }
 
 .filter__item--selected {
-    color: #cd0000;
+    color: #b51f23;
     border-color: #000;
 }
 
@@ -996,7 +1019,7 @@ textarea.input100 {
 /* Shopping cart */
 
 .cart {
-    font-size: 1.5em;
+    font-size: 1em;
     position: fixed;
     top: 0;
     right: 0;
@@ -1006,7 +1029,21 @@ textarea.input100 {
     cursor: pointer;
     color: #fff;
     border: none;
-    background-color: #transparent;
+    background-color: transparent;
+}
+
+
+.carter {
+    font-size: 1em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 0 1.195em;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    background-color: transparent;
 }
 
 
@@ -1062,24 +1099,42 @@ textarea.input100 {
 }
 
 .cart__count {
-    font-size: 9px;
+    font-size: 15px;
     font-weight: bold;
-    line-height: 15px;
+    line-height: 30px;
     position: absolute;
     top: 50%;
     right: 20px;
-    width: 15px;
-    height: 15px;
-    margin: -16px 0 0 0;
+    width: 30px;
+    height: 30px;
+    margin: -36px 0 0 0;
     text-align: center;
-    color: #fff;
-    border-radius: 50%;
-    background: #000;
+    color: #000;
+    border-radius: 100%;
+    background: #fff;
+    opacity: .9;
+}
+
+.cart__count:hover {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 30px;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    margin: -36px 0 0 0;
+    text-align: center;
+    color: #000;
+    border-radius: 100%;
+    background: #fff;
+    opacity: 1;
 }
 
 .cart--animate .cart__count {
-    -webkit-animation: countAnim .4s forwards;
-    animation: countAnim .4s forwards;
+    -webkit-animation: countAnim .8s forwards;
+    animation: countAnim .8s forwards;
 }
 
 @-webkit-keyframes countAnim {
@@ -1145,12 +1200,24 @@ textarea.input100 {
         padding-left: 0;
         text-align: left;
     }
+    .bear {
+            padding-left: 0;
+            text-align: left;
+        }
+    .barr {
+            padding-left: 0;
+            text-align: left;
+        }
 }
 
 @media screen and (max-width: 40em) {
-    .bar {
-        padding: .5em 4.5em .5em 0;
-    }
+  .bar {
+      padding: .5em 4.5em .5em 0;
+  }    .bear {
+          padding: .5em 4.5em .5em 0;
+      }    .barr {
+              padding: .5em 4.5em .5em 0;
+          }
 
     .flexbox .filter {
         -webkit-justify-content: space-around;
@@ -1330,8 +1397,8 @@ textarea.input100 {
 }
 
 .action--button {
-    background: #f1f1f1;
-    color: #000;
+    background: transparent;
+    color: #fff;
     border-radius: 2px;
     -webkit-transition: background 0.2s;
     transition: background 0.2s;
@@ -1355,22 +1422,23 @@ hr {
 }
 
 .action--button:hover {
-    background: #000;
-    color: #cd0000
+    background: #b51f23;
+    color: #fff
 }
 
 .action--button-btn {
-    background: #f1f1f1;
-    color: #000;
+    background: transparent;
+    color: #fff;
     border-radius: 2px;
     -webkit-transition: background 0.2s;
     transition: background 0.2s;
 }
 
 .action--button-btn:hover {
-    background: #000;
-    color: #cd0000;
-    opacity: 0.5;
+    background: #b51f23;
+    color: #fff;
+    opacity: 1;
+    padding: 10px;
 
 }
 
@@ -1419,11 +1487,11 @@ hr {
 }
 
 .action--compare {
-    margin: 0 0 0 4px;
     opacity: 0;
+    paddint-top: 0;
     pointer-events: none;
     cursor: default;
-    background-color: #000;
+    background-color: transparent;
     color: #fff;
     -webkit-transition: opacity 0.3s;
     transition: opacity 0.3s;
@@ -1435,8 +1503,8 @@ hr {
 
 .compare-basket--active .action--compare:nth-child(3),
 .compare-basket--active .action--compare:nth-child(4) {
-    background-color: #fff;
-    color: #000;
+    background-color: transparent;
+    color: #fff;
     pointer-events: auto;
     cursor: pointer;
 }
@@ -1542,11 +1610,10 @@ hr {
 
 .compare-basket {
     width: 100%;
-    padding: .75em;
     text-align: right;
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     background: transparent;
     z-index: 1000;
     -webkit-touch-callout: none;
@@ -1578,25 +1645,24 @@ hr {
 .product-icon {
     display: inline-block;
     vertical-align: middle;
-    background: #fff;
+    background: transparent;
     width: 100px;
     height: 100px;
     padding: 10px;
-    margin: 0 3px;
+    margin-right: 100px;
     border-radius: 2px;
     position: relative;
 }
 
 .product-icon::after {
-    content: '';
     position: absolute;
+    padding-right: 50px;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     border-radius: 4px;
     z-index: -1;
-    box-shadow: -56px 0 #aaa;
 }
 
 .compare-basket--full .product-icon::after {
@@ -1641,7 +1707,7 @@ hr {
     height: 100%;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: transparent;
     opacity: 0;
     -webkit-transition: opacity 0.4s;
     transition: opacity 0.4s;
@@ -1674,7 +1740,7 @@ hr {
 .compare__item {
     height: 100%;
     width: 50%;
-    background-image: url('../images/bg001.jpg');
+    background-image: url('../images/bg5.jfif');
     background-size: cover;
     text-align: center;
     cursor: default;
@@ -1689,13 +1755,13 @@ hr {
 }
 
 .compare__item:nth-of-type(2) {
-    background-image: url('../images/bg001.jpg');
+    background-image: url('../images/bg5.jfif');
     background-size: cover;}}
 
 .compare__item .product__title {
     margin: 1em 0;
     min-height: 0;
-    color: #000;
+    color: #fff;
     font-weight: 600;
 
 
@@ -2373,7 +2439,7 @@ html.js,
 .menu__link:focus,
 .menu__link[data-submenu]:hover::after,
 .menu__link[data-submenu]:focus::after {
-    color: #cd0000;
+    color: #b51f23;
 }
 
 .menu__link--current::before {
@@ -2384,7 +2450,7 @@ html.js,
     top: 50%;
     left: 0.5em;
     height: 4px;
-    color: #cd0000;
+    color: #b51f23;
 }
 
 [class^='animate-'],
@@ -2514,7 +2580,7 @@ html.js,
     vertical-align: middle;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #cd0000;
+    color: #b51f23;
 }
 
 .menu__breadcrumbs a:last-child {
@@ -2531,12 +2597,12 @@ html.js,
     font-family: 'feather';
     display: inline-block;
     padding: 0 0.5em;
-    color: #cd0000;
+    color: #b51f23;
 }
 
 .menu__breadcrumbs a:not(:last-child):hover::after,
 .menu__breadcrumbs a:not(:last-child):focus::after {
-    color: #cd0000;
+    color: #b51f23;
 }
 
 .menu__back {
@@ -3087,7 +3153,6 @@ Side note: I know that this style of nesting in SASS doesn't result in the most 
   .product-details {
     .product-title {
       margin-right: 20px;
-      font-family: $font-bold;
     }
     .product-description {
       margin: 5px 20px 5px 0;
@@ -3244,4 +3309,150 @@ Side note: I know that this style of nesting in SASS doesn't result in the most 
       }
     }
   }
+}
+
+
+
+
+
+
+
+/* General styles for all menus */
+.cbp-spmenu {
+  background-image: url("../images/bg001.jpg");
+	position: fixed;
+}
+
+
+
+
+
+
+
+/* Orientation-dependent styles for the content of the menu */
+
+.cbp-spmenu-vertical {
+	width: 0px;
+	height: 100%;
+	top: 0;
+	z-index: 1;
+}
+
+
+.cbp-spmenu-horizontal {
+	width: 100%;
+	height: 150px;
+	left: 0;
+	z-index: 1000;
+	overflow: hidden;
+}
+
+.
+
+.cbp-spmenu-horizontal a {
+	float: left;
+	width: 20%;
+	padding: 0.8em;
+}
+
+/* Vertical menu that slides from the left or right */
+
+.cbp-spmenu-left {
+	left: -240px;
+}
+
+.cbp-spmenu-right {
+	right: -360px;
+}
+
+.cbp-spmenu-left.cbp-spmenu-open {
+	left: 0px;
+}
+
+.cbp-spmenu-right.cbp-spmenu-open {
+	right: 0px;
+}
+
+/* Horizontal menu that slides from the top or bottom */
+
+.cbp-spmenu-top {
+	top: -150px;
+}
+
+.cbp-spmenu-bottom {
+	bottom: -150px;
+}
+
+.cbp-spmenu-top.cbp-spmenu-open {
+	top: 0px;
+}
+
+.cbp-spmenu-bottom.cbp-spmenu-open {
+	bottom: 0px;
+}
+
+/* Push classes applied to the body */
+
+.cbp-spmenu-push {
+	overflow-x: hidden;
+	position: relative;
+	left: 0;
+}
+
+.cbp-spmenu-push-toright {
+	left: 240px;
+}
+
+.cbp-spmenu-push-toleft {
+	left: -240px;
+}
+
+/* Transitions */
+
+.cbp-spmenu,
+.cbp-spmenu-push {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+/* Example media queries */
+
+@media screen and (max-width: 55.1875em){
+
+	.cbp-spmenu-horizontal {
+		font-size: 75%;
+		height: 110px;
+	}
+
+	.cbp-spmenu-top {
+		top: -110px;
+	}
+
+	.cbp-spmenu-bottom {
+		bottom: -110px;
+	}
+
+}
+
+@media screen and (max-height: 26.375em){
+
+	.cbp-spmenu-vertical {
+		font-size: 90%;
+		width: 190px;
+    z-index: 10;
+	}
+
+	.cbp-spmenu-left,
+	.cbp-spmenu-push-toleft {
+		left: -190px;
+	}
+
+	.cbp-spmenu-right {
+		right: -190px;
+	}
+
+	.cbp-spmenu-push-toright {
+		left: 190px;
+	}
 }

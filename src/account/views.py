@@ -22,7 +22,7 @@ def registration_view(request):
 			login(request, account)
 			Customer.objects.create(
                     user=account,
-                    email=request.user.email,
+                    email=email,
                 )
 			CollectiveCustomer.objects.create(
                     user=account,
@@ -31,6 +31,7 @@ def registration_view(request):
 			messages.success(request, ('Registration Successful'))
 			return redirect('Axis:store')
 		else:
+			messages.success(request, ("Ooops! We're sorry but that didn't work. Please try again!"))
 			context['registration_form'] = form
 	else: #GET request
 		form = RegistrationForm()

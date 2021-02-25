@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'home',
     'crispy_forms',
     'widget_tweaks',
+    'taggit',
 
 ]
 
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'FoxxMart.urls'
@@ -139,9 +141,10 @@ STATICFILES_DIRS = [
 ]
 
 
+#SECURE_SSL_REDIRECT = False
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media" )
-
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

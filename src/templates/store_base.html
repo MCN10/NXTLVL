@@ -7,12 +7,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
-    <title>Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment</title>
-    <meta name="description" content="Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment" />
-    <meta name="keywords" content="Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment" />
+    <title>Nxt Level Tech</title>
+    <meta name="description" content="3rd Axis." />
+    <meta name="keywords" content="ecommerce, 3d printer, 3d printing" />
     <meta name="author" content="Mufudzi Christopher" />
-    <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
-
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
     <link rel="stylesheet" href="https://use.typekit.net/bml8yys.css">
     <link rel="stylesheet" href="https://use.typekit.net/vxy2fer.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.98fd6c19.css' %}">
@@ -27,10 +26,11 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
     <!-- Flaticon icons -->
-    <link rel="stylesheet" type="text/css" href="{% static 'font/flaticon.css' %}" />
 
     <!-- General demo styles & header -->
     <link id="axis_stylesheet" rel="stylesheet" type="text/css" href="{% static 'css/demo-dark.css' %}" />
+    <link id="axis_stylesheet" rel="stylesheet" type="text/css" href="{% static 'css/component.css' %}" />
+    <link id="axis_stylesheet" rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
 
     <!-- Flickity gallery styles -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/flickity.css' %}" />
@@ -85,49 +85,33 @@
             document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
         }
         console.log('Cart:', cart)
+
     </script>
 
 </head>
 
-<body class=" loading demo-1">
-    <!-- Blueprint header -->
+<body class=" loading demo-1 cbp-spmenu-push">
 
     <header class="bp-header ">
-
         <br>
-
         <span>
-
             <div class="main">
-                <a><img id="axis_spinner" src="{% static 'images/logo.png' %}"  /></a>
-                <br><br>
+                <a><img src="{% static 'images/logo.png' %}" style="width: 40%" /></a>
             </div>
         </span>
-<hr>        <br>
-
+        <hr>
         <nav>
-            <input class="check-hidden" type="checkbox" />
-            <a type="radio" onclick="darkMode()">
-                <ion-icon size="small" title="Dark Mode" name="contrast-outline"></ion-icon><br>
-            </a>
 
-            <!-- <a href="{% url 'Axis:home' %}" title="Home">
-                <ion-icon src="{% static 'ion-icons/home-outline.svg' %}" size="large"></ion-icon><br>Home
-            </a> -->
             <a href="{% url 'Axis:store' %}" title="Online Store">
-                <ion-icon src="{% static 'ion-icons/storefront-outline.svg' %}" size="large"></ion-icon>
-                Store
+                <ion-icon src="{% static 'ion-icons/storefront-outline.svg' %}" size="large"></ion-icon><br>Shop
             </a>
             {% if user.is_authenticated %}
             {% if cartItems %}
-
             <a href="{% url 'Axis:cart' %}" title="Cart" data-info="">
                 <ion-icon src="{% static 'ion-icons/cart-sharp.svg' %}" class="cart__icon" size="large"></ion-icon><br>Cart
                 <span class="cart__count">{{cartItems}}</span>
             </a>
-
             {% else %}
-
             <a href="{% url 'Axis:cart' %}" title="Cart" data-info="">
                 <ion-icon src="{% static 'ion-icons/cart-outline.svg' %}" size="large"></ion-icon><br>Cart
             </a>
@@ -139,8 +123,6 @@
                 <ion-icon src="{% static 'ion-icons/log-out-outline.svg' %}" size="large"></ion-icon>Logout
             </a>
             {% else %}
-
-
             <a href="{% url 'account:login' %}" title="Cart" data-info="">
                 <ion-icon src="{% static 'ion-icons/cart-outline.svg' %}" size="large"></ion-icon><br>Cart
             </a>
@@ -161,57 +143,38 @@
             <a href="{% url 'Axis:dashboard' %}" target="_blank" title="Management Studio">
                 <ion-icon src="{% static 'ion-icons/options-outline.svg' %}" size="large"></ion-icon>Studio
             </a>
-                        {% endif %}
-            <a type="radio" onclick="lightMode()">
+            {% endif %}
+            <a onclick="darkMode()">
+                <ion-icon size="small" title="Dark Mode" name="contrast-outline"></ion-icon><br>
+            </a>
+            <a onclick="lightMode()">
                 <ion-icon size="small" title="Light Mode" name="sunny-outline"></ion-icon><br>
             </a>
-
-                        {% if user.is_authenticated %}
-            <p style="text-align: center; padding-left: 5%; top:0;">Logged in as: {{user.username}}
-                <!-- DARK MODE LIGHT MODE SWITCHES -->
-
-                <!-- END DARK MODE LIGHT MODE SWITCHES -->
-
-            </p>
+            {% if user.is_authenticated %}
+            Logged in as: {{user.username}}
             {% endif %}
-
             <hr>
-<br>
         </nav>
     </header>
+
     {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-warning alert-dismissable" role="alert">
+    <div class="alert alert-dark" style="text-align: center" role="alert">
         <button class="close" data-dismiss="modal">
-            <ion-icon src="{% static 'ion-icons/close-circle-outline.svg' %}" size="large"></ion-icon>
         </button>
         {{ message }}
     </div>
     {% endfor %}
     {%  endif %}
-    <!-- Compare basket
-
--->
-    <div class="compare-basket">
-        <button class="action action--button action--compare">Compare</button>
-    </div>
-
-
-
-
 
     {% block body %}
 
 
-
-
-
-
-
-
-
-
     {% endblock body %}
+
+    <br><br>
+    <br><br>
+    <br><br>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -220,15 +183,130 @@
     <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
     <script src="{% static 'js/flickity.pkgd.min.js' %}"></script>
     <script src="{% static 'js/compare_main.js' %}"></script>
-
+    <script src="{% static 'js/mlpushmenu.js' %}"></script>
     <script src="{% static 'js/classie.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/cart.js' %}"></script>
+    <script>
+        $("#post-form").submit(function(e) {
+            e.preventDefault();
+        });
 
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('trigger'));
 
+    </script>
+    
     <script type="text/javascript">
+$(function () {
+// inspect html to check id of category select dropdown.
+$(document).on("change", "select#id_category", function () {
+$.getJSON("/get_categoryLayer2/", { id: $(this).val() }, function (j) {
+var options = '<option value="">---------</option>';
+for (var i = 0; i < j.length; i++) {
+options +=
+'<option value="' + j[i].id + '">' + j[i].name + "</option>";
+}
+// inspect html to check id of subcategory select dropdown.
+$("select#id_categorylayer2").html(options);
+});
+});
+});
+</script>
+        
+    <script type="text/javascript">
+$(function () {
+// inspect html to check id of category select dropdown.
+$(document).on("change", "select#id_category", function () {
+$.getJSON("/get_categorylayer3/", { id: $(this).val() }, function (j) {
+var options = '<option value="">---------</option>';
+for (var i = 0; i < j.length; i++) {
+options +=
+'<option value="' + j[i].id + '">' + j[i].name + "</option>";
+}
+// inspect html to check id of subcategory select dropdown.
+$("select#id_categorylayer2").html(options);
+});
+});
+});
+</script>
+    
+        
+    <script type="text/javascript">
+$(function () {
+// inspect html to check id of category select dropdown.
+$(document).on("change", "select#id_categorylayer2", function () {
+$.getJSON("/get_categorylayer3/", { id: $(this).val() }, function (j) {
+var options = '<option value="">---------</option>';
+for (var i = 0; i < j.length; i++) {
+options +=
+'<option value="' + j[i].id + '">' + j[i].name + "</option>";
+}
+// inspect html to check id of subcategory select dropdown.
+$("select#id_categorylayer3").html(options);
+});
+});
+});
+</script>
+    
+        
+    <script type="text/javascript">
+$(function () {
+// inspect html to check id of category select dropdown.
+$(document).on("change", "select#id_categorylayer3", function () {
+$.getJSON("/get_categorylayer4/", { id: $(this).val() }, function (j) {
+var options = '<option value="">---------</option>';
+for (var i = 0; i < j.length; i++) {
+options +=
+'<option value="' + j[i].id + '">' + j[i].name + "</option>";
+}
+// inspect html to check id of subcategory select dropdown.
+$("select#id_categorylayer4").html(options);
+});
+});
+});
+</script>
+    
+        
+    <script type="text/javascript">
+$(function () {
+// inspect html to check id of category select dropdown.
+$(document).on("change", "select#id_categorylayer4", function () {
+$.getJSON("/get_categorylayer5/", { id: $(this).val() }, function (j) {
+var options = '<option value="">---------</option>';
+for (var i = 0; i < j.length; i++) {
+options +=
+'<option value="' + j[i].id + '">' + j[i].name + "</option>";
+}
+// inspect html to check id of subcategory select dropdown.
+$("select#id_categorylayer5").html(options);
+});
+});
+});
+</script>
+    
+        
+    <script type="text/javascript">
+$(function () {
+// inspect html to check id of category select dropdown.
+$(document).on("change", "select#id_categorylayer5", function () {
+$.getJSON("/get_categorylayer6/", { id: $(this).val() }, function (j) {
+var options = '<option value="">---------</option>';
+for (var i = 0; i < j.length; i++) {
+options +=
+'<option value="' + j[i].id + '">' + j[i].name + "</option>";
+}
+// inspect html to check id of subcategory select dropdown.
+$("select#id_categorylayer6").html(options);
+});
+});
+});
+</script>
+    <!-- <script type="text/javascript">
         var axis_theme = localStorage.getItem('axis_theme')
         var axis_spinner = localStorage.getItem('axis_spinner')
 
@@ -263,8 +341,8 @@
 
         function swapImageDark() {
             console.log("Dark Image Ran")
-            document.getElementById('axis_spinner').src = "{% static 'images/logo.png' }"
-            localStorage.setItem('axis_spinner', "{% static 'images/logo.png' %}")
+            document.getElementById('axis_spinner').src = "{% static 'images/III-dark.gif' }"
+            localStorage.setItem('axis_spinner', "{% static 'images/III-dark.gif' %}")
 
         }
 
@@ -283,14 +361,62 @@
 
         function swapImageLight() {
             console.log("Light Image Ran")
-            document.getElementById('axis_spinner').src = "{% static 'images/logo.png' %}"
-            localStorage.setItem('axis_spinner', "{% static 'images/logo.png' %}")
+            document.getElementById('axis_spinner').src = "{% static 'images/III-light.gif' %}"
+            localStorage.setItem('axis_spinner', "{% static 'images/III-light.gif' %}")
         }
-    </script>
+
+    </script> -->
 
 
+    <script>
+      var menuLeft = document.getElementById('cbp-spmenu-s1'),
+          menuRight = document.getElementById('cbp-spmenu-s2'),
+          showLeft = document.getElementById('showLeft'),
+          showRight = document.getElementById('showRight'),
+          showLeftPush = document.getElementById('showLeftPush'),
+          showRightPush = document.getElementById('showRightPush'),
+          body = document.body;
 
-    <br><br>
+      showLeft.onclick = function() {
+          classie.toggle(this, 'active');
+          classie.toggle(menuLeft, 'cbp-spmenu-open');
+          disableOther('showLeft');
+      };
+      showRight.onclick = function() {
+          classie.toggle(this, 'active');
+          classie.toggle(menuRight, 'cbp-spmenu-open');
+          disableOther('showRight');
+      };
+
+
+      showLeftPush.onclick = function() {
+          classie.toggle(this, 'active');
+          classie.toggle(body, 'cbp-spmenu-push-toright');
+          classie.toggle(menuLeft, 'cbp-spmenu-open');
+          disableOther('showLeftPush');
+      };
+      showRightPush.onclick = function() {
+          classie.toggle(this, 'active');
+          classie.toggle(body, 'cbp-spmenu-push-toleft');
+          classie.toggle(menuRight, 'cbp-spmenu-open');
+          disableOther('showRightPush');
+      };
+
+      function disableOther(button) {
+          if (button !== 'showLeft') {
+              classie.toggle(showLeft, 'disabled');
+          }
+          if (button !== 'showRight') {
+              classie.toggle(showRight, 'disabled');
+          }
+          if (button !== 'showLeftPush') {
+              classie.toggle(showLeftPush, 'disabled');
+          }
+          if (button !== 'showRightPush') {
+              classie.toggle(showRightPush, 'disabled');
+          }
+      }
+  </script>
 
 </body>
 

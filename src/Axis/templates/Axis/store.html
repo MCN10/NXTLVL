@@ -7,128 +7,179 @@
 
 
 {% block body %}
-
-
-
 <!-- Bottom bar with filter and cart info -->
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left " id="cbp-spmenu-s1">
+<br>
+<br>
+<br>
+<br>
+<button class="action filter__item filter__item--selected" data-filter="*">All</button>
+
+
+    
+{% for tag in taglist %}
+<br>
+<br>
+<button class="action filter__item " data-filter=".{{tag}}">
+    <span class="action__text"> {{tag}}({{tag.total_products}})</span>
+</button>
+{% endfor %}
+</nav>
+
+
 <div class="bar">
-    <div class="filter">
-        <span class="filter__label">
-        </span>
-        <button class="action filter__item filter__item--selected" data-filter="*">All</button>
-
-        {% for category in category_list %}
-        <button class="action filter__item" data-filter=".{{category.slug}}">
-                <span class="action__text"> {{category}}</span>
+    <div class="compare-basket">
+        <button class="cart action-button action--compare">
+            <ion-icon src="{% static 'ion-icons/git-compare-outline.svg' %}"></ion-icon><br>Compare
         </button>
-
-        {% endfor %}
     </div>
-    {% if user.is_authenticated %}
-    <a href="{% url 'Axis:cart' %}" class="">
-        <button class="cart">
-            <ion-icon src="{% static 'ion-icons/cart-outline.svg' %}" size="small" class="cart__icon"></ion-icon>
-            <span class="text-hidden">Shopping cart</span>
+</div>
+
+<div class="barr">
+    <section>
+        <button id="showLeft"></button>
+        <button id="showRight"></button>
+        <button id="showtTop"></button>
+        <button id="showtBottom"></button>
+    </section>
+    <section class="buttonset">
+        <button id="showLeftPush" class="carter">
+          <ion-icon src="{% static 'ion-icons/filter-outline.svg' %}" class="cart__icon"></ion-icon><br>Filter
+        </button>
+        <button id="showRightPush" class="cart">
+            <ion-icon src="{% static 'ion-icons/cart-outline.svg' %}" class="cart__icon"></ion-icon><br>Quick Cart
             <span class="cart__count">{{cartItems}}</span>
         </button>
-    </a>
-    {% else %}
-    <a href="{% url 'account:login' %}">
-        <button class="cart">
-            <ion-icon src="{% static 'ion-icons/cart-outline.svg' %}" size="small" class="cart__icon"></ion-icon>
-            <span class="text-hidden">Shopping cart</span>
-            <span class="cart__count">{{cartItems}}</span>
-        </button></a>
-    {% endif %}
-</div>
-
-
-
-<div class="view">
-
-    <!-- Grid -->
-
-    <section class="grid grid--loader">
-        <!-- The cursor elements -->
-        <div class="cursor cursor--small"></div>
-        <canvas class="cursor cursor--canvas" resize></canvas>
-        <!-- Loader -->
-        <img class="grid__loader" src="{% static 'images/grid.svg' %}" width="60" alt="Loader image" />
-        <!-- Grid sizer for a fluid Isotope (Masonry) layout -->
-        <div class="grid__sizer"></div>
-        <!-- Grid items -->
-
-
-        {% for product in products %}
-        <div class="grid__item {{product.category.slug}} product">
-
-
-
-            <div class="slider product__image">
-                <div class="slider__item"><a href="{% url 'Axis:product_details'  product.id %}"><img src="{{product.imageURL1}}" /></a></div>
-
-                {% if product.imageURL2 %}
-                <div class="slider__item"><a href="{% url 'Axis:product_details'  product.id %}"><img src="{{product.imageURL2}}" /></a></div>
-                {% endif %}
-
-                {% if product.imageURL3 %}
-                <div class="slider__item"><a href="{% url 'Axis:product_details'  product.id %}"><img src="{{product.imageURL3}}" /></a></div>
-                {% endif %}
-
-                {% if product.imageURL4 %}
-                <div class="slider__item"><a href="{% url 'Axis:product_details'  product.id %}"><img src="{{product.imageURL4}}" /></a></div>
-                {% endif %}
-            </div>
-
-            <br>
-            <div class="product__info  meta">
-                {% if product.stock == 0 %}
-                <span class=" product__title meta__title" style="color: #cd0000">Out Of Stock</span>
-                {% elif product.stock <= 10 %}
-                <span class=" product__title meta__title" style="color: gray">Stock is Low</span>
-                {% endif %}
-                <span class=" product__title meta__title">{{product.name}}</span>
-                <a href="{% url 'Axis:product_details'  product.id %}"><img class="product__image extra" src="{{product.imageURL1}}" alt="{{product.name}}" /></a>
-                <span class="product__year ">{{product.description}}</span>
-                <span class="product__price  meta__price">R {{product.price|floatformat:2}}</span>
-                <!--       <span class="product__alcohol extra highlight">{{product.description}}</span> -->
-
-            </div>
-            <label class="action action--button action--compare-add">
-                <input class="check-hidden" type="checkbox" />
-                <ion-icon size="large" color="white" src="{% static 'ion-icons/checkmark-circle-outline.svg'%}" class="fa-checker"></ion-icon>
-                <ion-icon size="large" color="white" src="{% static 'ion-icons/add-circle-outline.svg'%}" class="fa-pluser"></ion-icon>
-                <span class="action__text action__text--invisible">Add to compare</span>
-            </label>
-            {% if product.stock >= 1 %}
-
-            <button data-product={{product.id}} data-action="add" class="action action--button action--compare-buy action--buy update-cart">
-                <ion-icon size="large" color="black" src="{% static 'ion-icons/cart-outline.svg' %}"></ion-icon><span class="action__text--invisible">Add to cart</span>
-            </button>
-            {% else %}
-            <button title="Out of Stock!" class="no-stock action action--button action--compare-buy action--compare-buy-no-stock">
-                <ion-icon size="large" color="black" src="{% static 'ion-icons/alert-circle-outline.svg' %}"></ion-icon><span class="action__text--invisible">Out of Stock</span>
-            </button>
-            {% endif %}
-
-        </div>
-
-
-        {% endfor %}
     </section>
-    <!-- /grid-->
-    <br>
 </div>
-<!-- /view -->
+
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+    <br><br>
+    <br><br>
+    <br><br>
+    <table style="text-align: center">
+        <tbody>
+
+            {% for item in items %}
+
+            <tr>
+                <td>
+                    <ion-icon data-product={{item.product.id}} data-action="cancel" class="chg-quantity update-cart" size="large" src="{% static 'ion-icons/close-circle-outline.svg' %}"></ion-icon>
+                </td>
+                <td>
+                    <a href="{% url 'Axis:product_details'  item.product.id %}"> <img class="img slider" src="{{ item.product.imageURL1 }}" width="200" height="200" /></a>
+                </td>
 
 
-<!-- product compare wrapper -->
-<section class="compare">
-    <button class="action action--close">
-        <ion-icon src="{% static 'ion-icons/close-circle-outline.svg' %}" size="large"></ion-icon><span class="action__text action__text--invisible">Close comparison overlay</span>
-    </button>
-</section>
+                <td>
+                    <p> {{item.price}}</p>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <div class="row justify-content-center">
+        <div>
+            <span style="text-align: center">
+                <h2> R {{order.get_cart_total|floatformat:2}}</h2>
+            </span>
+            <hr>
+            <p>{% if order.get_cart_total %}
+                {% if user.is_authenticated %}
+                <a href="{% url 'Axis:cart' %}"><button class="action--button-btn" >Go to Cart </button></a>
+                <a href="{% url 'Axis:checkout' %}"><button class="action--button-btn" >Proceed to Checkout</button></a>
+                {% else %}
+                <a href="{% url 'account:login' %}"> <button class="action--button-btn" >Go to Cart</button> </a>
+                <a href="{% url 'account:login' %}"> <button class="action--button-btn" >Proceed to Checkout</button></a>
+                {% endif %}
+
+                {% endif %}
+            </p>
+            <hr>
+          </div>
+        </div>
+      </nav>
+
+
+    <div class="view ">
+
+        <!-- Grid -->
+        <section class="grid grid--loader" id="store">
+            <!-- The cursor elements -->
+            <div class="cursor cursor--small"></div>
+            <canvas class="cursor cursor--canvas" resize></canvas>
+            <!-- Loader -->
+            <img class="grid__loader" src="{% static 'images/grid.svg' %}" width="60" alt="Loader image" />
+            <!-- Grid sizer for a fluid Isotope (Masonry) layout -->
+            <div class="grid__sizer"></div>
+            <!-- Grid items -->
+
+            {% for product in products %}
+            {% if product.tags %}
+            <div class="grid__item{% for tag in product.tags.all %} {{tag.name}}{% endfor %} product">
+                {% endif %}
+                <div class="slider product__image">
+                    <div class="slider__item"><a href="{% url 'Axis:product_details'  product.id %}"><img src="{{product.imageURL1}}" /></a></div>
+
+                    {% if product.imageURL2 %}
+                    <div class="slider__item"><a href="{% url 'Axis:product_details'  product.id %}"><img src="{{product.imageURL2}}" /></a></div>
+                    {% endif %}
+
+                    {% if product.imageURL3 %}
+                    <div class="slider__item"><a href="{% url 'Axis:product_details'  product.id %}"><img src="{{product.imageURL3}}" /></a></div>
+                    {% endif %}
+
+                    {% if product.imageURL4 %}
+                    <div class="slider__item"><a href="{% url 'Axis:product_details'  product.id %}"><img src="{{product.imageURL4}}" /></a></div>
+                    {% endif %}
+                </div>
+                <br>
+                <div class="product__info  meta">
+                    {% if product.stock == 0 %}
+                    <span class=" product__title meta__title" style="color: #cd0000">Out Of Stock</span>
+                    {% elif product.stock <= 10 %}
+                    <span class=" product__title meta__title" style="color: gray">Stock is Low</span>
+                    {% endif %}
+                    <span class=" product__title meta__title">{{product.name}}</span>
+                    <a href="{% url 'Axis:product_details'  product.id %}"><img class="product__image extra" src="{{product.imageURL1}}" alt="{{product.name}}" /></a>
+                    <span class="product__alcohol extra highlight">{{product.description1}}</span>
+                    <span class="product__price  meta__price">R {{product.price|floatformat:2}}</span>
+                </div>
+                <label class="action action--button action--compare-add">
+                    <input class="check-hidden" type="checkbox" />
+                    <ion-icon size="large" color="white" src="{% static 'ion-icons/checkmark-circle-outline.svg'%}" class="fa-checker"></ion-icon>
+                    <ion-icon size="large" color="white" src="{% static 'ion-icons/add-circle-outline.svg'%}" class="fa-pluser"></ion-icon>
+                    <span class="action__text action__text--invisible">Add to compare</span>
+                </label>
+                {% if product.stock >= 1 %}
+
+                <button data-product={{product.id}} data-action="add" class="action action--button action--compare-buy action--buy update-cart">
+                    <ion-icon size="large" color="black" src="{% static 'ion-icons/cart-outline.svg' %}"></ion-icon><span class="action__text--invisible">Add to cart</span>
+                </button>
+                {% else %}
+                <button title="Out of Stock!" class="no-stock action action--button action--compare-buy action--compare-buy-no-stock">
+                    <ion-icon size="large" color="black" src="{% static 'ion-icons/alert-circle-outline.svg' %}"></ion-icon><span class="action__text--invisible">Out of Stock</span>
+                </button>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </section>
+        <!-- /grid-->
+        <br>
+    </div>
+    <!-- /view -->
+
+
+    <!-- product compare wrapper -->
+    <section class="compare">
+        <button class="action action--close">
+            <ion-icon src="{% static 'ion-icons/close-circle-outline.svg' %}" size="large"></ion-icon><span class="action__text action__text--invisible">Close comparison overlay</span>
+        </button>
+    </section>
 
 
 
-{% endblock body %}
+    {% endblock body %}

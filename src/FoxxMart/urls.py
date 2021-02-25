@@ -26,14 +26,14 @@ urlpatterns = [
     path('home', include('home.urls', namespace='home')),
     path('account/', include('account.urls', namespace='account')),
     path('', include('Axis.urls', namespace='Axis')),
-    path('TheCollective/', include('Collective.urls', namespace='Collective')),
-    path('AfricaQuizine/', include('Africa.urls', namespace='Africa')),
     path('password_change_done/', auth_views.PasswordChangeDoneView.as_view(template_name="account/password_change_done.html"), name="password_change_done"),
     path('password_change/', auth_views.PasswordChangeView.as_view(template_name="account/password_change.html"), name="password_change"),
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="account/password_reset.html"), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="account/password_reset_sent.html"), name="password_reset_done"),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="account/password_reset_form.html"), name="password_reset_confirm"),
-    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="account/password_reset_done.html"), name="password_reset_complete")
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="account/password_reset_done.html"), name="password_reset_complete"),
+    # path('__debug__/', include(debug_toolbar.urls))
+
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

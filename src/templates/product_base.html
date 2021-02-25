@@ -7,11 +7,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
-    <title>Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment</title>
-    <meta name="description" content="Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment" />
-    <meta name="keywords" content="Home - NXT Level Tech – Audio, Lighting and Home Entertainment Equipment" />
+    <title>3rd Axis</title>
+    <meta name="description" content="3rd Axis." />
+    <meta name="keywords" content="ecommerce, 3d printer, 3d printing" />
     <meta name="author" content="Mufudzi Christopher" />
-    <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
+    <link rel="shortcut icon" href="{% static 'images/III-dark.gif' %}">
     <link rel="stylesheet" href="https://use.typekit.net/bml8yys.css">
     <link rel="stylesheet" href="https://use.typekit.net/vxy2fer.css">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/base.98fd6c19.css' %}">
@@ -29,7 +29,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'font/flaticon.css' %}" />
 
     <!-- General demo styles & header -->
-    <link id="axis_stylesheet" rel="stylesheet" type="text/css" href="{% static 'css/demo-dark.css' %}" />
+    <link id="axis_stylesheet" rel="stylesheet" type="text/css" href="{% static 'css/demo.css' %}" />
+    <link id="axis_stylesheet" rel="stylesheet" type="text/css" href="{% static 'css/component.css' %}" />
 
     <!-- Flickity gallery styles -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/flickity.css' %}" />
@@ -101,8 +102,8 @@
           <span>
 
               <div class="main">
-                  <a><img id="axis_spinner" src="{% static 'images/III-light.gif' %}"  /></a>
-                  <br><br>
+                  <a><img id="axis_spinner" src="{% static 'images/III-light.gif' %}" style="width: 10%" /></a>
+                  rdAxis<br><br>
               </div>
           </span>
   <hr>        <br>
@@ -117,8 +118,7 @@
                   <ion-icon src="{% static 'ion-icons/home-outline.svg' %}" size="large"></ion-icon><br>Home
               </a> -->
               <a href="{% url 'Axis:store' %}" title="Online Store">
-                  <ion-icon src="{% static 'ion-icons/storefront-outline.svg' %}" size="large"></ion-icon>
-                  Store
+                  <ion-icon src="{% static 'ion-icons/storefront-outline.svg' %}" size="large"></ion-icon><br>Shop
               </a>
               {% if user.is_authenticated %}
               {% if cartItems %}
@@ -194,7 +194,7 @@
     {% for message in messages %}
     <div class="alert alert-warning alert-dismissable" role="alert">
         <button class="close" data-dismiss="modal">
-          <ion-icon src="{% static 'ion-icons/close-circle-outline.svg' %}"size="large" ></ion-icon>        </button>
+            </button>
         {{ message }}
     </div>
     {% endfor %}

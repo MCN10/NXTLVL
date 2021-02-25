@@ -27,6 +27,37 @@ audio:not([controls]) {
 [hidden] {
     display: none
 }
+div#test {
+  padding: 10px;
+
+  &.xs {
+    background-color: #ff0000;
+    color: #ffffff;
+    height: 100px;
+    width: 100px;
+  }
+
+  &.sm {
+    color: #ffcbcb;
+    background-color: #ff5e5e;
+    height: 150px;
+    width: 150px;
+  }
+
+  &.md {
+    color: #ff5e5e;
+    background-color: #ff9090;
+    height: 200px;
+    width: 200px;
+  }
+
+  &.lg {
+    color: #ff0000;
+    background-color: #ffcbcb;
+    height: 250px;
+    width: 250px;
+  }
+}
 
 html {
     -ms-text-size-adjust: 100%;
@@ -221,13 +252,12 @@ main {
 body {
     position: fixed;
     top: 0;
-    left: 0;
     --color-text: #fff;
     --color-bg: #0e0e0f;
     --color-link: #0f51e4;
     --color-link-hover: #ebd944;
     color: var(--color-text);
-    background-image: url("../images/bg001.jpg");
+    background-image: url("../images/banner.jpg");
     background-size: cover;
     font-family: Futura, futura-pt, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

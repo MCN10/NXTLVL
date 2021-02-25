@@ -11,7 +11,7 @@ import datetime
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm
-
+from taggit.models import Tag
 
 from .models import *
 from .forms import *
@@ -21,24 +21,59 @@ from .filters import *
 
 # Create your views here.
 def about(request):
-
-    return render(request, 'Axis/about.html', {})
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+    context = {'cartItems': cartItems, 'items': items, 'order': order,}
+    return render(request, 'Axis/about.html', context)
 
 def home(request):
     return render(request, 'home_base.html', {})
 
 
+def get_categorylayer2(request):
+    id = request.GET.get('id', '')
+    result = list(CategoryLayer2.objects.filter(category_id=int(id)).values('id', 'name'))
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+def get_categorylayer3(request):
+    id = request.GET.get('id', '')
+    result = list(CategoryLayer3.objects.filter(category_id=int(id)).values('id', 'name'))
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+def get_categorylayer4(request):
+    id = request.GET.get('id', '')
+    result = list(CategoryLayer4.objects.filter(category_id=int(id)).values('id', 'name'))
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+def get_categorylayer5(request):
+    id = request.GET.get('id', '')
+    result = list(CategoryLayer5.objects.filter(category_id=int(id)).values('id', 'name'))
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+def get_categorylayer6(request):
+    id = request.GET.get('id', '')
+    result = list(CategoryLayer6.objects.filter(category_id=int(id)).values('id', 'name'))
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+
 def store(request, category_slug=None):
     data = cartData(request)
-
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
-    category = None
-
     products = Product.objects.all()
+    taglist = Tag.objects.annotate(total_products=Count('product'))
     categorylist = Category.objects.annotate(total_products=Count('product'))
-    context = {'cartItems': cartItems, 'products':products , 'category_list' : categorylist ,'category' : category , 'shipping': False}
+    categorylist2 = CategoryLayer2.objects.annotate(total_products=Count('product'))
+    categorylist3 = CategoryLayer3.objects.annotate(total_products=Count('product'))
+    categorylist4 = CategoryLayer4.objects.annotate(total_products=Count('product'))
+    categorylist5 = CategoryLayer5.objects.annotate(total_products=Count('product'))
+    categorylist6 = CategoryLayer6.objects.annotate(total_products=Count('product'))
+
+    context = {'cartItems': cartItems, 'items': items, 'order': order, 'products':products , 'categorylist' : categorylist ,'taglist' : taglist , 'categorylist2' : categorylist2 , 'categorylist3' : categorylist3 , 'categorylist4' : categorylist4 , 'categorylist5' : categorylist5 , 'categorylist6' : categorylist6 , 'shipping': False}
     return render(request, 'Axis/store.html', context)
 
 
@@ -63,9 +98,10 @@ def product_details(request, pk):
     categorylist = Category.objects.annotate(total_products=Count('product'))
     product = Product.objects.get(id=pk)
     category = None
-    context = {'cartItems': cartItems, 'product':product , 'category_list' : categorylist ,'category' : category , 'shipping': False}
+    context = {'cartItems': cartItems, 'product':product , 'category_list' : categorylist ,'category' : category , 'shipping': False,}
     print("Categry List: ", categorylist)
     return render(request, 'Axis/product.html', context)
+
 
 def checkout(request):
     data = cartData(request)
@@ -101,6 +137,12 @@ def updateItem(request):
         print("Stock: ",product.stock)
         orderItem.quantity = (orderItem.quantity - 1)
 
+    elif action == 'cancel':
+                product.stock = (product.stock + orderItem.quantity)
+                print("Stock: ",product.stock)
+                print("Quantity: ",orderItem.quantity)
+                orderItem.quantity = (orderItem.quantity == 0)
+
     product.save()
 
     orderItem.save()
@@ -111,8 +153,15 @@ def updateItem(request):
     return JsonResponse('Item was added', safe=False)
 
 def contact(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+    context = {'cartItems': cartItems, 'items': items, 'order': order,}
+
     if request.method == 'POST':
         message = request.POST['message']
+
         if request.user.is_authenticated:
             name = request.user.username
             email = request.user.email
@@ -126,8 +175,7 @@ def contact(request):
             send_mail('Contact Form', message, settings.EMAIL_HOST_USER, ['christopher@3rdaxis.co.za', 'mcn10.foxx@gmail.com'], fail_silently="false" )
             messages.success(request, ("Your message has been sent successfully..."))
         return redirect('Axis:store')
-
-    return render(request, 'Axis/contact.html', {})
+    return render(request, 'Axis/contact.html', context)
 
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
@@ -152,7 +200,7 @@ def processOrder(request):
         print("Order total is incorrect")
 
     if order.shipping == True:
-        ShippingAddress.objects.create(
+        shippingAddress, created = ShippingAddress.objects.create(
         country=data['shipping']['country'],
         address1=data['shipping']['address1'],
         address2=data['shipping']['address2'],
@@ -160,7 +208,7 @@ def processOrder(request):
         province=data['shipping']['province'],
         postal_code=data['shipping']['postal_code'],
         )
-        Customer.objects.filter(user=request.user).update(shippingAddress='ShippingAddress.id')
+        customer.shippingAddress = shippingAddress
 
 # Add code to send email to Store Owner
     return JsonResponse('Payment submitted..', safe=False)
@@ -304,10 +352,14 @@ def updateProduct(request, pk):
     if request.method == 'POST':
         form = ProductsForm(request.POST, instance=product)
         if form.is_valid():
+            newproduct = form.save(commit=False)
+            newproduct.slug = slugify(newproduct.name)
+            newproduct.save()
+            # Without this next line the tags won't be saved.
             form.save()
             return redirect('/products/')
 
-    context =  {'action':action, 'form':form, 'name':name }
+    context =  {'action':action, 'form':form, 'name':name, 'product': product, }
     return render(request, 'Axis/AxisCRM/order_form.html', context)
 
 def deleteProduct(request, pk):
@@ -335,13 +387,23 @@ def addCategory(request):
     action = 'create'
     name = "Category"
     form = CategoriesForm()
+    form2 = Categories2Form()
+    form3 = Categories3Form()
+    form4 = Categories4Form()
+    form5 = Categories5Form()
+    form6 = Categories6Form()
     if request.method == 'POST':
         form = CategoriesForm(request.POST)
+        form2 = Categories2Form(request.POST)
+        form3 = Categories3Form(request.POST)
+        form4 = Categories4Form(request.POST)
+        form5 = Categories5Form(request.POST)
+        form6 = Categories6Form(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/categories/')
 
-    context =  {'action':action, 'form':form, 'name':name }
+    context =  {'action':action, 'form':form, 'form2':form2, 'form3':form3, 'form4':form4, 'form5':form5, 'form6':form6 }
     return render(request, 'Axis/AxisCRM/order_form.html', context)
 
 def updateCategory(request, pk):

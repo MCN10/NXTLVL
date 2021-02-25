@@ -99,12 +99,12 @@ http://flickity.metafizzy.co
 }
 
 .flickity-prev-next-button .arrow {
-  fill: #333;
+  fill: #fff;
 }
 
 /* color & size if no SVG - IE8 and Android 2.3 */
 .flickity-prev-next-button.no-svg {
-  color: #333;
+  color: #fff;
   font-size: 26px;
 }
 
@@ -128,7 +128,7 @@ http://flickity.metafizzy.co
   width: 10px;
   height: 10px;
   margin: 0 8px;
-  background: #333;
+  background: #fff;
   border-radius: 50%;
   filter: alpha(opacity=25); /* IE8 */
   opacity: 0.25;

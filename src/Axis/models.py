@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.db.models import Count
 from django.conf import settings
-
+from taggit.managers import TaggableManager
 
 
 # Create your models here.
@@ -23,18 +23,26 @@ class Customer(models.Model):
         return str(order_count)
 
 
-class Product(models.Model):
-    name        = models.CharField(max_length=200, null=False)
-    description1 = models.TextField(max_length=2000, null=False)
-    price       = models.DecimalField(max_digits=10, decimal_places=2, null=False)
-    image1      = models.ImageField(upload_to='main_product/', blank=True, null=False)
-    image2      = models.ImageField(upload_to='main_product/', blank=True, null=False)
-    image3      = models.ImageField(upload_to='main_product/', blank=True, null=False)
-    image4      = models.ImageField(upload_to='main_product/', blank=True, null=False)
-    category    = models.ForeignKey('Category' , on_delete=models.SET_NULL, null=True)
-    price       = models.DecimalField(max_digits=10, decimal_places=2, null=False)
-    stock       = models.IntegerField(null=False)
 
+
+
+class Product(models.Model):
+    name                = models.CharField(max_length=200, null=False)
+    description1        = models.TextField(max_length=2000, null=False)
+    price               = models.DecimalField(max_digits=10, decimal_places=2, null=False)
+    image1              = models.ImageField(upload_to='main_product/', blank=True, null=False)
+    image2              = models.ImageField(upload_to='main_product/', blank=True, null=False)
+    image3              = models.ImageField(upload_to='main_product/', blank=True, null=False)
+    image4              = models.ImageField(upload_to='main_product/', blank=True, null=False)
+    category            = models.ForeignKey('Category' , on_delete=models.SET_NULL, blank=True, null=True)
+    categorylayer2            = models.ForeignKey('CategoryLayer2' , on_delete=models.SET_NULL, blank=True, null=True)
+    categorylayer3            = models.ForeignKey('CategoryLayer3' , on_delete=models.SET_NULL, blank=True, null=True)
+    categorylayer4            = models.ForeignKey('CategoryLayer4' , on_delete=models.SET_NULL, blank=True, null=True)
+    categorylayer5            = models.ForeignKey('CategoryLayer5' , on_delete=models.SET_NULL, blank=True, null=True)
+    categorylayer6            = models.ForeignKey('CategoryLayer6' , on_delete=models.SET_NULL, blank=True, null=True)
+    price               = models.DecimalField(max_digits=10, decimal_places=2, null=False)
+    stock               = models.IntegerField(null=False)
+    tags                = TaggableManager()
     def __str__(self):
         return self.name
 
@@ -123,11 +131,13 @@ class ShippingAddress(models.Model):
     def __str__(self):
         return str(self.country)
 
+
 class Category(models.Model):
     ## for product category
-    category_name = models.CharField(max_length=50)
-    date_added = models.DateTimeField(auto_now_add=True, null=True)
-    slug = models.SlugField(blank=True, null=True)
+    category_name       = models.CharField(max_length=50)
+    date_added          = models.DateTimeField(auto_now_add=True, null=True)
+    date_updated        = models.DateTimeField(auto_now_add=True, null=True)
+    slug                = models.SlugField(blank=True, null=True, max_length=150, unique=True, db_index=True)
 
     def save(self , *args, **kwargs):
         if not self.slug and self.category_name:
@@ -135,8 +145,121 @@ class Category(models.Model):
         super(Category , self).save(*args, **kwargs)
 
     class Meta:
+        ordering = ('-date_added', )
         verbose_name = 'category'
         verbose_name_plural = 'categories'
+
+    def __str__(self):
+        return self.category_name
+
+
+
+
+class CategoryLayer2(models.Model):
+    ## for product category
+    category_name       = models.CharField(max_length=50)
+    date_added          = models.DateTimeField(auto_now_add=True, null=True)
+    date_updated        = models.DateTimeField(auto_now_add=True, null=True)
+    slug                = models.SlugField(blank=True, null=True)
+    category            = models.ForeignKey('Category', related_name='souscatégories', on_delete=models.SET_NULL, blank=True, null=True)
+
+    def save(self , *args, **kwargs):
+        if not self.slug and self.category_name:
+            self.slug = slugify(self.category_name)
+        super(CategoryLayer2 , self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Category Layer 2'
+        ordering = ('-date_updated', )
+
+
+    def __str__(self):
+        return self.category_name
+
+
+
+
+
+class CategoryLayer3(models.Model):
+    ## for product category
+    category_name       = models.CharField(max_length=50)
+    date_added          = models.DateTimeField(auto_now_add=True, null=True)
+    slug                = models.SlugField(blank=True, null=True)
+    category            = models.ForeignKey('CategoryLayer2', related_name='souscatégories', on_delete=models.SET_NULL, blank=True, null=True)
+    date_updated        = models.DateTimeField(auto_now_add=True, null=True)
+    
+    
+    def save(self , *args, **kwargs):
+        if not self.slug and self.category_name:
+            self.slug = slugify(self.category_name)
+        super(CategoryLayer3 , self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Category Layer 3'
+
+    def __str__(self):
+        return self.category_name
+
+
+
+
+class CategoryLayer4(models.Model):
+    ## for product category
+    category_name       = models.CharField(max_length=50)
+    date_added          = models.DateTimeField(auto_now_add=True, null=True)
+    slug                = models.SlugField(blank=True, null=True)
+    category            = models.ForeignKey('CategoryLayer3', related_name='souscatégories', on_delete=models.SET_NULL, blank=True, null=True)
+    date_updated        = models.DateTimeField(auto_now_add=True, null=True)
+    def save(self , *args, **kwargs):
+        if not self.slug and self.category_name:
+            self.slug = slugify(self.category_name)
+        super(CategoryLayer4 , self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Category Layer 4'
+
+    def __str__(self):
+        return self.category_name
+
+
+
+
+class CategoryLayer5(models.Model):
+    ## for product category
+    category_name       = models.CharField(max_length=50)
+    date_added          = models.DateTimeField(auto_now_add=True, null=True)
+    slug                = models.SlugField(blank=True, null=True)
+    category            = models.ForeignKey('CategoryLayer4', related_name='souscatégories', on_delete=models.SET_NULL, blank=True, null=True)
+    date_updated        = models.DateTimeField(auto_now_add=True, null=True)
+    def save(self , *args, **kwargs):
+        if not self.slug and self.category_name:
+            self.slug = slugify(self.category_name)
+        super(CategoryLayer5 , self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Category Layer 5'
+
+    def __str__(self):
+        return self.category_name
+
+
+
+
+class CategoryLayer6(models.Model):
+    ## for product category
+    category_name       = models.CharField(max_length=50)
+    date_added          = models.DateTimeField(auto_now_add=True, null=True)
+    slug                = models.SlugField(blank=True, null=True)
+    category            = models.ForeignKey('CategoryLayer5', related_name='souscatégories', on_delete=models.SET_NULL, blank=True, null=True)
+    date_updated        = models.DateTimeField(auto_now_add=True, null=True)
+    def save(self , *args, **kwargs):
+        if not self.slug and self.category_name:
+            self.slug = slugify(self.category_name)
+        super(CategoryLayer6 , self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Category Layer 6'
+
 
     def __str__(self):
         return self.category_name

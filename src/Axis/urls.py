@@ -20,7 +20,15 @@ urlpatterns = [
 	path('process_order/', views.processOrder, name="process_order"),
 	path('contact/', views.contact, name="contact"),
 
+    #------------ (STORE - Categories) ------------
 
+    path('get_categorylayer2/', views.get_categorylayer2, name="categorylayer2"),
+    path('get_categorylayer3/', views.get_categorylayer3, name="categorylayer3"),
+    path('get_categorylayer4/', views.get_categorylayer4, name="categorylayer4"),
+    path('get_categorylayer5/', views.get_categorylayer5, name="categorylayer5"),
+    path('get_categorylayer6/', views.get_categorylayer6, name="categorylayer6"),
+
+    
     #------------ (CRM - URLS) ------------
 	path('dashboard', views.dashboard, name="dashboard"),
     path('customer/<str:pk>/', views.customer, name="customer"),

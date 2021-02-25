@@ -65,7 +65,7 @@
         // isotope instance
         iso,
         // filter ctrls
-        filterCtrls = [].slice.call(document.querySelectorAll('.filter > button')),
+        filterCtrls = [].slice.call(document.querySelectorAll('.cbp-spmenu-left > button')),
         // cart
         cart = document.querySelector('.cart'),
         cartItems = cart.querySelector('.cart__count');

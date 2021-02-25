@@ -16,7 +16,7 @@ class OrderItemsForm(ModelForm):
 
 class ShippingDetailsForm(ModelForm):
 	class Meta:
-		model = ShippingAddress	
+		model = ShippingAddress
 		fields = '__all__'
 
 
@@ -31,4 +31,33 @@ class CategoriesForm(ModelForm):
 		model = Category
 		fields = '__all__'
 		exclude = ['slug']
-
+        
+class Categories2Form(ModelForm):
+	class Meta:
+		model = CategoryLayer2
+		fields = '__all__'
+		exclude = ['slug']
+        
+class Categories3Form(ModelForm):
+	class Meta:
+		model = CategoryLayer3
+		fields = '__all__'
+		exclude = ['slug']
+        
+class Categories4Form(ModelForm):
+	class Meta:
+		model = CategoryLayer4
+		fields = '__all__'
+		exclude = ['slug']
+        
+class Categories5Form(ModelForm):
+	class Meta:
+		model = CategoryLayer5
+		fields = '__all__'
+		exclude = ['slug']
+        
+class Categories6Form(ModelForm):
+	class Meta:
+		model = CategoryLayer6
+		fields = '__all__'
+		exclude = ['slug']

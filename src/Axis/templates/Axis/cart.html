@@ -5,7 +5,7 @@
 
 
 {% block body %}
-<div class="view">
+<div class="view ">
 
     <!-- Grid -->
 
@@ -38,7 +38,7 @@
 
                 <tr>
                     <td>
-                      <a href="{% url 'Axis:product_details'  item.product.id %}">  <img class="img slider" src="{{ item.product.imageURL1 }}" width="200" height="200" /></a>
+                        <a href="{% url 'Axis:product_details'  item.product.id %}"> <img class="img slider" src="{{ item.product.imageURL1 }}" width="200" height="200" /></a>
                     </td>
 
                     <td>
@@ -52,14 +52,15 @@
                         <p class="action--text">{{item.quantity}}</p>
                     </td>
                     <td>
-                      {% if item.product.stock %}
+                        {% if item.product.stock %}
                         <ion-icon data-product={{item.product.id}} data-action="add" class="chg-quantity update-cart" size="large" src="{% static 'ion-icons/chevron-up-circle-outline.svg' %}"></ion-icon>
-{% endif %}
+                        {% endif %}
                         <hr>
                         <ion-icon data-product={{item.product.id}} data-action="remove" class="chg-quantity update-cart" size="large" src="{% static 'ion-icons/chevron-down-circle-outline.svg' %}"></ion-icon>
                     </td>
                     <td>
-                        <h5><strong class="action--text">R {{item.get_total}}</strong></h5>
+                        <p class="action--text" ><strong >R{{item.get_total}}</strong><p>
+                          </td>
 
                 </tr><!-- END TR-->
 
@@ -71,22 +72,28 @@
         <div class="row justify-content-center">
             <div>
                 <div>
-                  <br>
+                    <br>
 
 
-                    <p >
+                    <p>
                         <span class="action--text">{{order.get_cart_items}} Items &nbsp;</span>
                     </p>
                     <p>
-                        <span><strong><h1>Grand Total: R {{order.get_cart_total|floatformat:2}}</h1> </strong></span>
+                        <span><strong>
+                                <h1>Grand Total: R {{order.get_cart_total|floatformat:2}}</h1>
+                            </strong></span>
                     </p>
+                    <br>
                     <hr>
 
                 </div>
-                <p><a href="{% url 'Axis:store' %}" class="btn action--button-btn">Continue Shopping&nbsp;&nbsp;</a>&nbsp;{% if order.get_cart_total%}<a href="{% url 'Axis:checkout' %}" class="btn action--button-btn" >Proceed to Checkout &nbsp;&nbsp; </a>
+                <p><button class="action--button-btn"><a href="{% url 'Axis:store' %}" >Continue Shopping&nbsp;&nbsp;</a></button>&nbsp;{% if order.get_cart_total%}<button class="action--button-btn"><a href="{% url 'Axis:checkout' %}">Proceed to Checkout &nbsp;&nbsp; </a></button>
                     {% endif %}</p>
+                <hr>
+
             </div>
         </div>
     </section>
-
-    {% endblock %}
+    <br><br>
+</div>
+{% endblock %}

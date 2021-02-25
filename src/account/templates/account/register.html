@@ -2,74 +2,68 @@
 
 
 {% load crispy_forms_tags %}
-{% load static %}
 
 {% block body %}
 
 
 <div class="view">
-    <section class="grid">
+  <section class="grid">
 
-        <h2>Register</h2>
-        <form class="login100-form validate-form" method="POST" novalidate>
-            {% csrf_token %}
-            {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-warning alert-dismissable" role="alert">
-                <button class="close" data-dismiss="alert"><small>x</small></button>
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %}
-            {% for field in form %}
-        {% for error in field.errors %}
-          <p style="color: red;">{{error}}</p>
-        {% endfor %}
-      {% endfor %}
-
-      {% if form.non_field_errors %}
-        <div style="color:red;">
-          <p>{{form.non_field_errors}}</p>
-        </div>
-      {% endif %}
-            <div class="" data-validate="Username is required">
-                <p><ion-icon size="large" src="{% static 'ion-icons/mail-outline.svg' %}"></ion-icon>Email Address</p>
-
-                <input type="text" required autofocus style="border-radius: 5px; padding: 5px" name="email" id="id_email" placeholder="Email: ">
-            </div>
-            <br>
-            <div data-validate="Fullname is required">
-                <p><ion-icon size="large" src="{% static 'ion-icons/person-outline.svg' %}"></ion-icon>Name and Surname</p>
-                <input type="text" style="border-radius: 5px; padding: 5px" name="username" placeholder="Fullname: " maxlength="30" required id="id_username">
-            </div>
-            <br>
-
-            <div data-validate="Phone Number is required">
-                <p><ion-icon src="{% static 'ion-icons/phone-portrait-outline.svg' %}" size="large"></ion-icon>Phone Number </p>
-                <input type="text" style="border-radius: 5px; padding: 5px" name="phone" maxlength="200" required id="id_phone" placeholder="Phone Number:">
-            </div>
-            <br>
-
-            <div data-validate="Please enter a stronger password">
-                <p><ion-icon size="large" src="{% static 'ion-icons/lock-open-outline.svg' %}"></ion-icon>Create Password: </p>
-                <input style="border-radius: 5px; padding: 5px" type="password" name="password1" autocomplete="new-password" placeholder="Password:" required id="id_password1">
-            </div>
-            <br>
-
-            <div data-validate="passwords must match">
-                <p><ion-icon size="large" src="{% static 'ion-icons/lock-closed-outline.svg' %}"></ion-icon> Confirm Password: </p>
-                <input style="border-radius: 5px; padding: 5px" placeholder="Password Confirmation: " type="password" name="password2" autocomplete="new-password" required id="id_password2">
+<h2>Register</h2>
+<form method="post" novalidate>
+        {% csrf_token %}
 
 
-            </div>
-            <br>
+                    {% for field in form %}
+                {% for error in field.errors %}
+                  <p style="color: red;">{{error}}</p>
+                {% endfor %}
+              {% endfor %}
 
-            <button class="action action--button-btn" type="submit">Register</button>
+              {% if form.non_field_errors %}
+                <div style="color:red;">
+                  <p>{{form.non_field_errors}}</p>
+                </div>
+              {% endif %}
+      <div class="" data-validate="Username is required">
+        <ion-icon size="small" name="mail-outline"></ion-icon><br>Email<br>
 
-        </form>
+        <input type="text" style="border-radius: 5px; padding: 5px" name="email" id="id_email" autofocus placeholder="Email: ">
+      </div>
+      <br>
+      <div >
+        <ion-icon size="small" name="person-outline"></ion-icon><br>Full Name<br>
+      <input type="text"  style="border-radius: 5px; padding: 5px" name="username" placeholder="Full Name: " maxlength="30"  required id="id_username">
+    </div>
+        <br>
+
+        <div>
+          <div>
+      <ion-icon name="phone-portrait-outline" size="small"></ion-icon><br>Phone Number<br>
+      <input type="text" style="border-radius: 5px; padding: 5px" name="phone" maxlength="200" required id="id_phone" placeholder="Phone Number:">
+    </div>
+          <br>
+
+    <div>
+<ion-icon size="small" name="lock-open-outline"></ion-icon><br>Password<br>
+<input style="border-radius: 5px; padding: 5px"  type="password" name="password1" autocomplete="new-password" placeholder="Password:" required id="id_password1">
+    </div>
+          <br>
+
+    <div>
+<ion-icon size="small" name="lock-closed-outline"></ion-icon> <br>Confirm Password<br>
+<input style="border-radius: 5px; padding: 5px"placeholder="Password Confirmation: " type="password" name="password2" autocomplete="new-password" required id="id_password2">
 
 
-    </section>
+    </div>
+          <br>
+
+  <button class="action action--button-btn" type="submit" >Register</button>
+
+</form>
+
+
+  </section>
 </div><br>
 
 {% endblock %}

@@ -1,0 +1,4 @@
+database = '3rdAxisDB"
+user = 'mufudzi'
+password = '123456789'
+default-character-set = 'utf8'

@@ -4,7 +4,7 @@
 {% load static %}
 
 {% block body %}
-
+<!-- Bottom bar with filter and cart info -->
 <div class="view">
 
     <!-- Grid -->
@@ -17,9 +17,8 @@
         <div style="padding:auto; " id="form-wrapper">
             <form id="form" >
                 <div id="user-informaton">
-                    <hr>
-                    <p>Customer Information:</p>
-                    <hr>
+                    <br>
+                    <h4>Customer Information</h4>
                     <div class="form-field">
                         {% if user.is_authenticated %}<input style="border-radius: 5px; padding: 10px; color: #000;" required class="form-control" type="text" name="name" placeholder="{{ user.username }}" value="{{ user.username }}" readonly> {% else %} <input style="border-radius: 5px; padding: 10px" required class="form-control" type="text" name="name" placeholder="Name..">{% endif %}
                     </div>
@@ -36,9 +35,8 @@
                 </div>
 
                 <div id="shipping-info" >
-                    <hr>
-                    <p>Shipping Information:</p>
-                    <hr>
+                    <br>
+                    <h4>Shipping Information</h4>
                     <div class="form-field" >
                         <input id="textbox_id"  class="form-control" style="border-radius: 5px; padding: 10px" required type="text" name="country" placeholder="Country">
                     </div>
@@ -83,9 +81,13 @@
 
             </div>
             <br>
+            <hr>
 
             <p class="action--text"><a href="{% url 'Axis:cart' %}" class="btn action--button-btn">Return to Cart</a>
                 <a href="{% url 'Axis:store' %}" class="btn action--button-btn">Continue Shopping</a></p>
+
+                <hr>
+
         </div>
     </section>
 </div>

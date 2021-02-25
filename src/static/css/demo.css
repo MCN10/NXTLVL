@@ -44,7 +44,7 @@ ion-icon {
 }
 
 ion-icon {
-font-size: 86px;
+font-size: 56px;
 }
 
 
@@ -106,11 +106,14 @@ a {
     text-decoration: none;
     color: #000000;
     outline: none;
+    font-weight: 400;
 }
 
 a:hover {
-    color: #cd0000;
+    color: #000;
     text-decoration: none;
+    font-weight: 600px;
+
 }
 
 /* Blueprint header */
@@ -923,13 +926,37 @@ textarea.input100 {
     text-align: center;
     background-image: url("../images/bg1.jpg");
     background-size: cover;
-    overflow: scroll;
+    overflow-x: scroll;
     -webkit-transform: translate3d(0, 0, 0);
     /* Fix for Chrome flicker on Mac ...party like we're in 2012! */
 }
 .bar:hover{
     opacity:1;
 }
+
+
+.barr {
+    position: fixed;
+    opacity: 1;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    width: 90%;
+    height: 10%;
+    padding: 0.55em;
+    color: #000;
+    text-align: center;
+    background: transparent;
+    background-size: cover;
+    overflow-x: hiden;
+    -webkit-transform: translate3d(0, 0, 0);
+    /* Fix for Chrome flicker on Mac ...party like we're in 2012! */
+}
+.barr:hover{
+    opacity:1;
+}
+
+
 
 .bear {
     position: fixed;
@@ -967,25 +994,19 @@ textarea.input100 {
     color: #000000;
 }
 
-.filter__label .ion-icon{
-  color: #000000;
 
-}
 
 .filter__item {
     font-weight: bold;
-    margin: 0 2%;
     padding: .1em;
     vertical-align: middle;
-    color: #f1f1f1;
+    color: #000;
     border-bottom: 2px solid transparent;
 }
-
 .filter__item--selected {
     color: #cd0000;
     border-color: #000;
 }
-
 .filter__item .icon {
     font-size: 1.75em;
     display: none;
@@ -994,7 +1015,7 @@ textarea.input100 {
 /* Shopping cart */
 
 .cart {
-    font-size: 1.5em;
+    font-size: 1em;
     position: fixed;
     top: 0;
     right: 0;
@@ -1006,6 +1027,19 @@ textarea.input100 {
     background-color: transparent;
 }
 
+
+.carter {
+  font-size: 1em;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding: 0 1.195em;
+    cursor: pointer;
+    color: #000;
+    border: none;
+    background-color: transparent;
+}
 
 .no-touch .cart:focus,
 .no-touch .cart:hover {
@@ -1059,21 +1093,37 @@ textarea.input100 {
 }
 
 .cart__count {
-    font-size: 9px;
+    font-size: 15px;
     font-weight: bold;
-    line-height: 15px;
+    line-height: 30px;
     position: absolute;
     top: 50%;
     right: 20px;
-    width: 15px;
-    height: 15px;
-    margin: -16px 0 0 0;
+    width: 30px;
+    height: 30px;
+    margin: -36px 0 0 0;
     text-align: center;
     color: #fff;
-    border-radius: 50%;
+    border-radius: 100%;
     background: #000;
+    opacity: .7;
 }
-
+.cart__count:hover {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 30px;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    margin: -36px 0 0 0;
+    text-align: center;
+    color: #fff;
+    border-radius: 100%;
+    background: #000;
+    opacity: 1;
+}
 .cart--animate .cart__count {
     -webkit-animation: countAnim .4s forwards;
     animation: countAnim .4s forwards;
@@ -1141,13 +1191,23 @@ textarea.input100 {
     .bar {
         padding-left: 0;
         text-align: left;
-    }
+    }    .barr {
+            padding-left: 0;
+            text-align: left;
+        }    .bear {
+                padding-left: 0;
+                text-align: left;
+            }
 }
 
 @media screen and (max-width: 40em) {
-    .bar {
-        padding: .5em 4.5em .5em 0;
-    }
+  .bar {
+      padding: .5em 4.5em .5em 0;
+  }    .barr {
+          padding: .5em 4.5em .5em 0;
+      }    .bear {
+              padding: .5em 4.5em .5em 0;
+          }
 
     .flexbox .filter {
         -webkit-justify-content: space-around;
@@ -1327,7 +1387,7 @@ textarea.input100 {
 }
 
 .action--button {
-    background: #f1f1f1;
+    background: transparent;
     color: #000;
     border-radius: 2px;
     -webkit-transition: background 0.2s;
@@ -1340,7 +1400,7 @@ textarea.input100 {
 }
 
 .action--text-inv {
-    background: #f1f1f1f1;
+    background: transparent;
     color: #000;
     border-radius: 100%;
     text-align: center;
@@ -1356,7 +1416,7 @@ hr {
 }
 
 .action--button-btn {
-    background: #f1f1f1;
+    background: transparent;
     color: #000;
     border-radius: 2px;
     -webkit-transition: background 0.2s;
@@ -1364,10 +1424,10 @@ hr {
 }
 
 .action--button-btn:hover {
-    background: #fff;
+  background: #fff;
     color: #000;
     opacity: 0.9;
-
+    padding: 20px;
 }
 
 .action__text {
@@ -1416,11 +1476,10 @@ hr {
 }
 
 .action--compare {
-    margin: 0 0 0 4px;
     opacity: 0;
     pointer-events: none;
     cursor: default;
-    background-color: gray;
+    background-color: transparent;
     color: #000;
     -webkit-transition: opacity 0.3s;
     transition: opacity 0.3s;
@@ -1432,8 +1491,9 @@ hr {
 
 .compare-basket--active .action--compare:nth-child(3),
 .compare-basket--active .action--compare:nth-child(4) {
-    background-color: #fff;
+    background-color: transparent;
     color: #000;
+    opacity: 1;
     pointer-events: auto;
     cursor: pointer;
 }
@@ -1538,10 +1598,9 @@ hr {
 }
 
 .compare-basket {
-    width: 100%;
-    padding: .75em;
+    width: 95%;
     position: fixed;
-    text-align: right;
+    text-align: center;
     top: 0;
     left: 0;
     background: transparent;
@@ -1575,11 +1634,11 @@ hr {
 .product-icon {
     display: inline-block;
     vertical-align: middle;
-    background: #fff;
+    background: transparent;
     width: 100px;
     height: 100px;
     padding: 10px;
-    margin: 0 3px;
+    margin-right: 70px;
     border-radius: 2px;
     position: relative;
 }
@@ -1589,11 +1648,11 @@ hr {
     position: absolute;
     width: 100%;
     height: 100%;
+    margin-right: 10px;
     top: 0;
     left: 0;
     border-radius: 4px;
     z-index: -1;
-    box-shadow: -56px 0 #aaa;
 }
 
 .compare-basket--full .product-icon::after {
@@ -1836,14 +1895,20 @@ hr {
         font-size: 90%;
     }
 
+
+    .compare__item .product__price {
+      font-size: 1.85em;
+          }
+
+
     .compare__item .product__image {
-        width: 10%;
+        width: 50%;
         float: left;
     }
 
     .compare__item .product__title {
         margin: 0 40px 0 43px;
-        font-size: 0.85em;
+        font-size: 1.85em;
         display: block;
     }
 
@@ -3241,4 +3306,151 @@ Side note: I know that this style of nesting in SASS doesn't result in the most 
       }
     }
   }
+}
+
+
+
+
+
+
+
+
+/* General styles for all menus */
+.cbp-spmenu {
+  background-image: url("../images/bg1.jpg");
+	position: fixed;
+}
+
+
+
+
+
+
+
+/* Orientation-dependent styles for the content of the menu */
+
+.cbp-spmenu-vertical {
+	width: 350px;
+	height: 100%;
+	top: 0;
+	z-index: 1;
+}
+
+
+.cbp-spmenu-horizontal {
+	width: 100%;
+	height: 150px;
+	left: 0;
+	z-index: 1000;
+	overflow: hidden;
+}
+
+.
+
+.cbp-spmenu-horizontal a {
+	float: left;
+	width: 20%;
+	padding: 0.8em;
+}
+
+/* Vertical menu that slides from the left or right */
+
+.cbp-spmenu-left {
+	left: -240px;
+}
+
+.cbp-spmenu-right {
+	right: -360px;
+}
+
+.cbp-spmenu-left.cbp-spmenu-open {
+	left: 0px;
+}
+
+.cbp-spmenu-right.cbp-spmenu-open {
+	right: 0px;
+}
+
+/* Horizontal menu that slides from the top or bottom */
+
+.cbp-spmenu-top {
+	top: -150px;
+}
+
+.cbp-spmenu-bottom {
+	bottom: -150px;
+}
+
+.cbp-spmenu-top.cbp-spmenu-open {
+	top: 0px;
+}
+
+.cbp-spmenu-bottom.cbp-spmenu-open {
+	bottom: 0px;
+}
+
+/* Push classes applied to the body */
+
+.cbp-spmenu-push {
+	overflow-x: hidden;
+	position: relative;
+	left: 0;
+}
+
+.cbp-spmenu-push-toright {
+	left: 240px;
+}
+
+.cbp-spmenu-push-toleft {
+	left: -240px;
+}
+
+/* Transitions */
+
+.cbp-spmenu,
+.cbp-spmenu-push {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+/* Example media queries */
+
+@media screen and (max-width: 55.1875em){
+
+	.cbp-spmenu-horizontal {
+		font-size: 75%;
+		height: 110px;
+	}
+
+	.cbp-spmenu-top {
+		top: -110px;
+	}
+
+	.cbp-spmenu-bottom {
+		bottom: -110px;
+	}
+
+}
+
+@media screen and (max-height: 26.375em){
+
+	.cbp-spmenu-vertical {
+		font-size: 90%;
+		width: 190px;
+    z-index: 10;
+	}
+
+	.cbp-spmenu-left,
+	.cbp-spmenu-push-toleft {
+		left: -190px;
+	}
+
+	.cbp-spmenu-right {
+		right: -190px;
+	}
+
+	.cbp-spmenu-push-toright {
+		left: 190px;
+	}
 }
